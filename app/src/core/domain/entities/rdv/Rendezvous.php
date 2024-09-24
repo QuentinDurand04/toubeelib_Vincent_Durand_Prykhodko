@@ -3,6 +3,7 @@
 namespace toubeelib\core\domain\entities\rdv;
 
 use toubeelib\core\domain\entities\Entity;
+use toubeelib\core\dto\RendezvousDTO;
 
 class Rendezvous extends Entity
 {
@@ -68,5 +69,10 @@ class Rendezvous extends Entity
     public function setStatut(string $statut): void
     {
         $this->statut = $statut;
+    }
+
+    public function toDTO(): RendezvousDTO
+    {
+        return new RendezvousDTO($this->id, $this);
     }
 }

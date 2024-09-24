@@ -10,25 +10,23 @@ use toubeelib\core\dto\RendezvousDTO;
 use toubeelib\infrastructure\repositories\ArrayRdvRepository;
 
 class RendezVousAction extends AbstractAction
-{ /*
+{ 
     private ServiceRendezvous $rendezVousService;
 
     public function __construct(ServiceRendezvous $rendezVousService)
     {
         $this->rendezVousService = $rendezVousService;
-    }*/
+    }
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         $id = $args['id'];
         
         try {
-            $repo = new ArrayRdvRepository();
-            $rendezvous = $repo->getRendezvousById($id);
-            
-            $rdv = new RendezvousDTO($id, $rendezvous);
+            $rdv = $this->rendezVousService->getRendezvousById($id);
             
             $data = [
+                'type' => "ressource",
                 'rendez_vous' => $rdv,
                 'links' => [
                     'self' => ['href' => "/rdvs/$id/", 'method' => "GET"],
