@@ -55,8 +55,7 @@ class ServiceRendezvous implements ServiceRendezvousInterface
         $rendezvous = new Rendezvous(
             $inputRendezvousDTO->praticienID,
             $inputRendezvousDTO->patientID,
-            $inputRendezvousDTO->specialite,
-            $inputRendezvousDTO->dateTime
+            $inputRendezvousDTO->specialite
         );
 
         $rendezvousID = $this->rendezvousRepository->save($rendezvous);

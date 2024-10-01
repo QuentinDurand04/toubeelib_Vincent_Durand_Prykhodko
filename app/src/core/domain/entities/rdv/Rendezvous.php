@@ -10,15 +10,15 @@ class Rendezvous extends Entity
     protected string $praticienID;
     protected string $patientID;
     protected string $specialite;
-    protected \DateTime $dateTime;
+    //protected \DateTime $dateTime;
     protected string $statut;
 
-    public function __construct(string $praticienID, string $patientID, string $specialite, \DateTime $dateTime)
+    public function __construct(string $praticienID, string $patientID, string $specialite)
     {
         $this->praticienID = $praticienID;
         $this->patientID = $patientID;
         $this->specialite = $specialite;
-        $this->dateTime = $dateTime;
+        //$this->dateTime = $dateTime;
     }
 
     public function getPraticienID(): string

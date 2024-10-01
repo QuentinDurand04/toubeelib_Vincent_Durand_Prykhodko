@@ -4,62 +4,43 @@ namespace toubeelib\application\actions;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use toubeelib\core\services\rdv\ServiceRendezvous;
+use toubeelib\core\dto\InputRendezvousDTO;
 use Slim\Exception\HttpBadRequestException;
-use \toubeelib\core\services\rdv\ServiceRendezvous;
-use toubeelib\core\dto\RendezVousDTO;
 
 class CreerRendezVousAction extends AbstractAction
 {
-    private ServiceRendezvous $rendezVousService;
+    private ServiceRendezvous $rdvService;
 
-    public function __construct(ServiceRendezvous $rendezVousService)
+    public function __construct(ServiceRendezvous $rdvService)
     {
-        $this->rendezVousService = $rendezVousService;
+        $this->rdvService = $rdvService;
     }
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $parsedBody = $rq->getParsedBody();
+        $data = $rq->getParsedBody();
 
-        if (!isset($parsedBody['id_patient'], $parsedBody['id_praticien'], $parsedBody['specialite_praticien'], $parsedBody['lieu'], $parsedBody['horaire'], $parsedBody['type'])) {
-            throw new HttpBadRequestException($rq, "Données manquantes ou invalides pour la création du rendez-vous");
+        if (!isset($data['praticien_id'], $data['patient_id'], $data['specialite'])) {
+            throw new HttpBadRequestException($rq, 'Données manquantes ou invalides');
         }
 
-        $rendezVousDTO = new RendezVousDTO(
-            $parsedBody['id_patient'],
-            $parsedBody['id_praticien'],
-            $parsedBody['specialite_praticien'],
-            $parsedBody['lieu'],
-            $parsedBody['horaire'],
-            $parsedBody['type']
-        );
-
         try {
-            $idRdv = $this->rendezVousService->createRendezVous($rendezVousDTO);
+            $rdvDTO = new InputRendezvousDTO(
+                $data['praticien_id'],
+                $data['patient_id'],
+                $data['specialite']
+            );
 
-            $location = "/rdvs/$idRdv";
+            $rdvID = $this->rdvService->creerRendezvous($rdvDTO);
 
-            $rdv = $this->rendezVousService->getRendezVousById($idRdv);
-
-            $data = [
-                'rendez_vous' => $rdv,
-                'links' => [
-                    'self' => ['href' => $location],
-                    'modifier' => ['href' => "$location"],
-                    'annuler' => ['href' => "$location"],
-                    'praticien' => ['href' => "/praticiens/{$rdv['id_praticien']}"],
-                    'patient' => ['href' => "/patients/{$rdv['id_patient']}"]
-                ]
-            ];
-
-            $rs->getBody()->write(json_encode($data));
-            return $rs->withHeader('Content-Type', 'application/json')
-                ->withHeader('Location', $location)
-                ->withStatus(201);
-
+            $rs = $rs->withHeader('Location', '/rdvs/' . $rdvID);
+            $rs->getBody()->write(json_encode(['message' => 'Rendez-vous créé avec succès']));
+            return $rs->withHeader('Content-Type', 'application/json')->withStatus(201);
         } catch (\Exception $e) {
-            return $rs->withStatus(500)->withHeader('Content-Type', 'application/json')
-                ->getBody()->write(json_encode(['message' => 'Erreur interne du serveur']));
+            $rs->getBody()->write(json_encode(['error' => 'Erreur lors de la création du rendez-vous']));
+            return $rs->withHeader('Content-Type', 'application/json')->withStatus(500);
         }
     }
 }
+
