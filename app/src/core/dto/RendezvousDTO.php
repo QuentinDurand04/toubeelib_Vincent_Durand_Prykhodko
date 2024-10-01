@@ -10,7 +10,7 @@ class RendezvousDTO extends DTO
     public string $praticienID;
     public string $patientID;
     public string $specialite;
-    public \DateTime $dateTime;
+    //public \DateTime $dateTime;
 
     public function __construct(string $rendezvousID, Rendezvous $rendezvous)
     {
@@ -18,6 +18,6 @@ class RendezvousDTO extends DTO
         $this->praticienID = $rendezvous->getPraticienID();
         $this->patientID = $rendezvous->getPatientID();
         $this->specialite = $rendezvous->getSpecialite();
-        $this->dateTime = $rendezvous->getDateTime();
+        //$this->dateTime = $rendezvous->getDateTime();
     }
 }
