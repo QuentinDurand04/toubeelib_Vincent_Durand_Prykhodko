@@ -26,6 +26,7 @@ $c = $builder->build();
 // Créez l'application Slim
 $app = AppFactory::createFromContainer($c);
 
+$app->add(new \toubeelib\application\middlewares\Cors());
 $app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware();
 $app->addErrorMiddleware($c->get('displayErrorDetails'), false, false);

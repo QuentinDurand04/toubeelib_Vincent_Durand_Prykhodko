@@ -17,13 +17,13 @@ class ServiceRendezvous implements ServiceRendezvousInterface
 {
     private RendezvousRepositoryInterface $rendezvousRepository;
     private ServicePraticienInterface $servicePraticien;
-    private Logger $logger;
+    //private Logger $logger;
 
-    public function __construct(RendezvousRepositoryInterface $rendezvousRepository, ServicePraticienInterface $servicePraticien, Logger $logger)
+    public function __construct(RendezvousRepositoryInterface $rendezvousRepository, ServicePraticienInterface $servicePraticien)
     {
         $this->rendezvousRepository = $rendezvousRepository;
         $this->servicePraticien = $servicePraticien;
-        $this->logger = $logger;
+        //$this->logger = $logger;
     }
 
     public function getRendezvousById(string $id): RendezvousDTO
@@ -95,12 +95,12 @@ class ServiceRendezvous implements ServiceRendezvousInterface
                 $rendezvous->setPatientID($patientID);
                 $this->rendezvousRepository->save($rendezvous);
 
-                $this->logger->info("Rendez-vous modifié : ID = $rendezvousID, Nouveau patient = $patientID");
+                //$this->logger->info("Rendez-vous modifié : ID = $rendezvousID, Nouveau patient = $patientID");
 
                 return new RendezvousDTO($rendezvousID, $rendezvous);
             }
         } catch (\Exception $e) {
-            $this->logger->error("Erreur lors de la modification du rendez-vous : " . $e->getMessage());
+            //$this->logger->error("Erreur lors de la modification du rendez-vous : " . $e->getMessage());
             throw $e;
         }
     }
@@ -149,9 +149,9 @@ class ServiceRendezvous implements ServiceRendezvousInterface
             $this->rendezvousRepository->save($rendezvous);
 
             // Log annulation
-            $this->logger->info("Rendez-vous annulé : ID = $rendezvousId");
+            //$this->logger->info("Rendez-vous annulé : ID = $rendezvousId");
         } catch (\Exception $e) {
-            $this->logger->error("Erreur lors de l'annulation du rendez-vous : " . $e->getMessage());
+            //$this->logger->error("Erreur lors de l'annulation du rendez-vous : " . $e->getMessage());
             throw $e;
         }
     }
@@ -162,7 +162,7 @@ class ServiceRendezvous implements ServiceRendezvousInterface
             $rendezvous = $this->rendezvousRepository->getRendezvousById($rendezvousId);
             $rendezvous->setStatut('honore');
             $this->rendezvousRepository->save($rendezvous);
-            $this->logger->info("Rendezvous marked as honored: $rendezvousId");
+            //$this->logger->info("Rendezvous marked as honored: $rendezvousId");
         } catch (RepositoryEntityNotFoundException $e) {
             throw new ServiceRendezvousInvalidDataException('Invalid Rendezvous ID');
         }
@@ -174,7 +174,7 @@ class ServiceRendezvous implements ServiceRendezvousInterface
             $rendezvous = $this->rendezvousRepository->getRendezvousById($rendezvousId);
             $rendezvous->setStatut('non_honore');
             $this->rendezvousRepository->save($rendezvous);
-            $this->logger->info("Rendezvous marked as not honored: $rendezvousId");
+            //$this->logger->info("Rendezvous marked as not honored: $rendezvousId");
         } catch (RepositoryEntityNotFoundException $e) {
             throw new ServiceRendezvousInvalidDataException('Invalid Rendezvous ID');
         }
@@ -186,7 +186,7 @@ class ServiceRendezvous implements ServiceRendezvousInterface
             $rendezvous = $this->rendezvousRepository->getRendezvousById($rendezvousId);
             $rendezvous->setStatut('paye');
             $this->rendezvousRepository->save($rendezvous);
-            $this->logger->info("Rendezvous marked as paid: $rendezvousId");
+            //$this->logger->info("Rendezvous marked as paid: $rendezvousId");
         } catch (RepositoryEntityNotFoundException $e) {
             throw new ServiceRendezvousInvalidDataException('Invalid Rendezvous ID');
         }
@@ -198,7 +198,7 @@ class ServiceRendezvous implements ServiceRendezvousInterface
             $rendezvous = $this->rendezvousRepository->getRendezvousById($rendezvousId);
             $rendezvous->setStatut('transmis');
             $this->rendezvousRepository->save($rendezvous);
-            $this->logger->info("Rendezvous marked as transmitted: $rendezvousId");
+            //$this->logger->info("Rendezvous marked as transmitted: $rendezvousId");
         } catch (RepositoryEntityNotFoundException $e) {
             throw new ServiceRendezvousInvalidDataException('Invalid Rendezvous ID');
         }
