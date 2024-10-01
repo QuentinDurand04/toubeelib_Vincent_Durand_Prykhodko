@@ -38,7 +38,7 @@ class CreerRendezVousAction extends AbstractAction
             $rs->getBody()->write(json_encode(['message' => 'Rendez-vous créé avec succès']));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(201);
         } catch (\Exception $e) {
-            $rs->getBody()->write(json_encode(['error' => $e->getMessage()]));
+            $rs->getBody()->write(json_encode(['error' => 'Erreur lors de la création du rendez-vous']));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(500);
         }
     }
