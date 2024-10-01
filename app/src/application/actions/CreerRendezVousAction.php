@@ -34,11 +34,11 @@ class CreerRendezVousAction extends AbstractAction
 
             $rdvID = $this->rdvService->creerRendezvous($rdvDTO);
 
-            $rs = $rs->withHeader('Location', '/rdvs/' . $rdvID);
+            $rs = $rs->withHeader('Location', '/rdvs/' . $rdvID->rendezvousID);
             $rs->getBody()->write(json_encode(['message' => 'Rendez-vous créé avec succès']));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(201);
         } catch (\Exception $e) {
-            $rs->getBody()->write(json_encode(['error' => 'Erreur lors de la création du rendez-vous']));
+            $rs->getBody()->write(json_encode(['error' => $e->getMessage()]));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(500);
         }
     }

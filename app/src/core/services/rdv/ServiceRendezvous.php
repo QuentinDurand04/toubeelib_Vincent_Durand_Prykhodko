@@ -44,8 +44,8 @@ class ServiceRendezvous implements ServiceRendezvousInterface
             throw new \Exception("Praticien introuvable avec l'ID fourni.");
         }
 
-        if ($praticien->specialite_label !== $inputRendezvousDTO->specialite) {
-            throw new \Exception("La spécialité demandée ne correspond pas à celle du praticien.");
+        if ($praticien->getSpecialite() !== $inputRendezvousDTO->specialite) {
+            throw new \Exception("La spécialité demandée ne correspond pas à celle du praticien.".$praticien->getSpecialite());
         }
 
         /*if (!$this->isPraticienDisponible($praticien, $inputRendezvousDTO->dateTime)) {

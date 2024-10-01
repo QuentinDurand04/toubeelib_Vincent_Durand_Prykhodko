@@ -63,7 +63,7 @@ class Rendezvous extends Entity
 
     public function setDateTime(\DateTime $dateTime): void
     {
-        $this->dateTime = $dateTime;
+        //$this->dateTime = $dateTime;
     }
 
     public function setStatut(string $statut): void
