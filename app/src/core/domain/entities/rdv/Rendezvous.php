@@ -2,6 +2,7 @@
 
 namespace toubeelib\core\domain\entities\rdv;
 
+use DateTime;
 use toubeelib\core\domain\entities\Entity;
 use toubeelib\core\dto\RendezvousDTO;
 
@@ -13,12 +14,16 @@ class Rendezvous extends Entity
     protected \DateTime $dateTime;
     protected string $statut;
 
-    public function __construct(string $praticienID, string $patientID, string $specialite, \DateTime $dateTime)
+    public function __construct(string $praticienID, string $patientID, string $specialite, String $dateTime = null)
     {
         $this->praticienID = $praticienID;
         $this->patientID = $patientID;
         $this->specialite = $specialite;
-        $this->dateTime = $dateTime;
+        if ($dateTime != null){
+            $this->dateTime = \DateTime::createFromFormat('Y-m-d H:i', $dateTime);
+        } else {
+            $this->dateTime = \DateTime::createFromFormat('Y-m-d H:i','2024-09-02 09:30');
+        }
     }
 
     public function getPraticienID(): string

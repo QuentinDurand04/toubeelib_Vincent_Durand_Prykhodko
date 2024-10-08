@@ -16,7 +16,10 @@ return function( \Slim\App $app):\Slim\App {
     $app->get('/praticiens/{id}/disponibilites', \toubeelib\application\actions\ListerDisponibilitesAction::class);
 
 
-
+    $app->options('/{routes:.+}', function( Request $rq, Response $rs, array $args) : Response {
+        
+        return $rs;
+    });
 
 
     return $app;

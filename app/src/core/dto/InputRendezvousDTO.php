@@ -2,6 +2,8 @@
 
 namespace toubeelib\core\dto;
 
+use DateTime;
+
 class InputRendezvousDTO extends DTO
 {
     public string $praticienID;
@@ -9,7 +11,7 @@ class InputRendezvousDTO extends DTO
     public string $specialite;
     public \DateTime $dateTime;
 
-    public function __construct(string $praticienID, string $patientID, string $specialite, \DateTime $dateTime)
+    public function __construct(string $praticienID, string $patientID, string $specialite, DateTime $dateTime)
     {
         $this->praticienID = $praticienID;
         $this->patientID = $patientID;
