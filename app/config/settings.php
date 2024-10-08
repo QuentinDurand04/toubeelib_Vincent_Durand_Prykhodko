@@ -25,16 +25,5 @@ return  [
         return $logger;
     },
 
-    RendezvousRepositoryInterface::class => new ArrayRdvRepository(),
-    PraticienRepositoryInterface::class => new ArrayPraticienRepository(),
-    ServicePraticienInterface::class => function(ContainerInterface $c){
-        return new ServicePraticien($c->get(PraticienRepositoryInterface::class));
-    },
-    ServiceRendezvousInterface::class => function(ContainerInterface $c){
-        return new ServiceRendezvous($c->get(RendezvousRepositoryInterface::class), $c->get(ServicePraticienInterface::class), $c->get('prog.logger'));
-    },
-    RendezVousAction::class => function(ContainerInterface $c){
-        return new RendezVousAction($c->get(ServiceRendezvousInterface::class));
-    }
 
-    ] ;
+] ;

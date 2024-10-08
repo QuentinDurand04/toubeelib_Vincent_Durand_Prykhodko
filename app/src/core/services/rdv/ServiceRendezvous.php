@@ -6,24 +6,25 @@ use Monolog\Logger;
 use toubeelib\core\domain\entities\praticien\Praticien;
 use toubeelib\core\domain\entities\rdv\Rendezvous;
 use toubeelib\core\dto\InputRendezvousDTO;
-use toubeelib\core\repositoryInterfaces\RendezvousRepositoryInterface;
 use toubeelib\core\dto\RendezvousDTO;
+use toubeelib\core\repositoryInterfaces\RendezvousRepositoryInterface;
+use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 use toubeelib\core\services\praticien\ServicePraticienInterface;
 use toubeelib\core\services\praticien\ServicePraticienInvalidDataException;
-use toubeelib\core\services\rdv\ServiceRendezvousInterface;
-use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use toubeelib\core\services\rdv\exceptions\ServiceRendezvousInvalidDataException;
+use toubeelib\core\services\rdv\exceptions\ServiceRendezVousInvalidInputDataException;
 
 class ServiceRendezvous implements ServiceRendezvousInterface
 {
     private RendezvousRepositoryInterface $rendezvousRepository;
     private ServicePraticienInterface $servicePraticien;
-    private Logger $logger;
+//    private Logger $logger;
 
-    public function __construct(RendezvousRepositoryInterface $rendezvousRepository, ServicePraticienInterface $servicePraticien, Logger $logger)
+    public function __construct(RendezvousRepositoryInterface $rendezvousRepository, ServicePraticienInterface $servicePraticien)
     {
         $this->rendezvousRepository = $rendezvousRepository;
         $this->servicePraticien = $servicePraticien;
-        $this->logger = $logger;
+//        $this->logger = $logger;
     }
 
     public function getRendezvousById(string $id): RendezvousDTO
@@ -83,8 +84,14 @@ class ServiceRendezvous implements ServiceRendezvousInterface
             $specialite = $this->servicePraticien->getSpecialiteById($specialiteID);
 
             if (!in_array($specialiteID, $praticien->specialites)) {
-                throw new \Exception("La spécialité n'est pas valide pour ce praticien.");
+                throw new ServiceRendezVousInvalidInputDataException("La spécialité n'est pas valide pour ce praticien.");
             }
+
+            //patient inexist
+//            if(){
+//                throw new ServiceRendezvousInvalidDataException("Le patient n'existe pas.");
+//            }
+
 
             if ($rendezvous->getPraticienID() !== $praticienID || $rendezvous->getSpecialite() !== $specialite) {
                 $this->annulerRendezvous($rendezvousID);

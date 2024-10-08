@@ -1,5 +1,6 @@
 <?php
 
+use Monolog\Handler\StreamHandler;
 use toubeelib\core\services\rdv\ServiceRendezvous;
 use toubeelib\core\repositoryInterfaces\RendezvousRepositoryInterface;
 use toubeelib\core\services\praticien\ServicePraticienInterface;
@@ -10,12 +11,13 @@ use toubeelib\core\services\rdv\ServiceRendezvousInterface;
 return [
     // Autres définitions...
 
+
     // Définition du service Rendezvous
     ServiceRendezvousInterface::class => function ($c) {
         return new ServiceRendezvous(
             $c->get(RendezvousRepositoryInterface::class),
             $c->get(ServicePraticienInterface::class),
-            $c->get('logger')
+            $c->get('logger.rdv')
         );
     },
 ];

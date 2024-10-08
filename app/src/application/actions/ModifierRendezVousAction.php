@@ -4,9 +4,11 @@ namespace toubeelib\application\actions;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Exception\HttpNotFoundException;
-use \toubeelib\core\services\rdv\ServiceRendezvous;
 use Slim\Exception\HttpBadRequestException;
+use toubeelib\core\dto\InputRendezvousDTO;
+use toubeelib\core\services\rdv\exceptions\ServiceRendezvousInvalidDataException;
+use toubeelib\core\services\rdv\exceptions\ServiceRendezVousInvalidInputDataException;
+use toubeelib\core\services\rdv\ServiceRendezvous;
 
 class ModifierRendezVousAction extends AbstractAction
 {
@@ -20,24 +22,24 @@ class ModifierRendezVousAction extends AbstractAction
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         $id = $args['id'];
-        $parsedBody = $rq->getParsedBody();
+        $queryParams = $rq->getQueryParams();
 
-        if (!isset($parsedBody['specialite_praticien']) && !isset($parsedBody['id_patient'])) {
+        if (!isset($queryParams['specialite_praticien']) && !isset($queryParams['id_patient'])) {
             throw new HttpBadRequestException($rq, "Données manquantes ou invalides pour la modification");
         }
 
         try {
             $rdv = $this->rendezVousService->getRendezVousById($id);
 
-            if (isset($parsedBody['specialite_praticien'])) {
-                $rdv['specialite_praticien'] = $parsedBody['specialite_praticien'];
+            if (isset($queryParams['specialite_praticien'])) {
+                $rdv->specialite = $queryParams['specialite_praticien'];
             }
 
-            if (isset($parsedBody['id_patient'])) {
-                $rdv['id_patient'] = $parsedBody['id_patient'];
+            if (isset($queryParams['id_patient'])) {
+                $rdv->patientID = $queryParams['id_patient'];
             }
 
-            $this->rendezVousService->modifierRendezVous($id, $rdv);
+            $this->rendezVousService->modifierRendezVous($id, new InputRendezvousDTO($rdv->praticienID, $rdv->patientID, $rdv->specialite, $rdv->dateTime));
 
             // Construction de la réponse avec les liens HATEOAS
             $data = [
@@ -46,21 +48,40 @@ class ModifierRendezVousAction extends AbstractAction
                     'self' => ['href' => "/rdvs/$id/"],
                     'modifier' => ['href' => "/rdvs/$id/"],
                     'annuler' => ['href' => "/rdvs/$id/"],
-                    'praticien' => ['href' => "/praticiens/{$rdv['id_praticien']}"],
-                    'patient' => ['href' => "/patients/{$rdv['id_patient']}"]
+                    'praticien' => ['href' => "/praticiens/{$rdv->praticienID}"],
+                    'patient' => ['href' => "/patients/{$rdv->patientID}"]
                 ]
             ];
 
             $rs->getBody()->write(json_encode($data));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(200);
 
-        } catch (\Exception $e) {
-            if ($e instanceof HttpNotFoundException) {
-                throw new HttpNotFoundException($rq, "Rendez-vous $id non trouvé");
-            }
+        }
+        catch(ServiceRendezvousInvalidDataException $e) {
+            $responseBody = $rs->getBody();
+            $responseBody->write(json_encode(['message' => $e->getMessage()]));
+            return $rs
+                    ->withStatus(404)
+                    ->withHeader('Content-Type', 'application/json')
+                    ->withBody($responseBody);
+        }
 
-            return $rs->withStatus(500)->withHeader('Content-Type', 'application/json')
-                ->getBody()->write(json_encode(['message' => 'Erreur interne du serveur']));
+        catch(ServiceRendezVousInvalidInputDataException $e) {
+            $responseBody = $rs->getBody();
+            $responseBody->write(json_encode(['message' => $e->getMessage()]));
+            return $rs
+                ->withStatus(400)
+                ->withHeader('Content-Type', 'application/json')
+                ->withBody($responseBody);
+        }
+
+        catch (\Exception $e) {
+            $responseBody = $rs->getBody();
+            $responseBody->write(json_encode(['message' => $e->getMessage()]));
+            return $rs
+                ->withStatus(500)
+                ->withHeader('Content-Type', 'application/json')
+                ->withBody($responseBody);
         }
     }
 }
