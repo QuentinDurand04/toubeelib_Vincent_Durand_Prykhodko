@@ -29,7 +29,8 @@ class CreerRendezVousAction extends AbstractAction
             $rdvDTO = new InputRendezvousDTO(
                 $data['praticien_id'],
                 $data['patient_id'],
-                $data['specialite']
+                $data['specialite'],
+                $data['dateTime']
             );
 
             $rdvID = $this->rdvService->creerRendezvous($rdvDTO);
