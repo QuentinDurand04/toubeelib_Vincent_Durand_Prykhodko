@@ -11,11 +11,11 @@ class InputRendezvousDTO extends DTO
     public string $specialite;
     public \DateTime $dateTime;
 
-    public function __construct(string $praticienID, string $patientID, string $specialite, DateTime $dateTime)
+    public function __construct(string $praticienID, string $patientID, string $specialite, String $dateTime)
     {
         $this->praticienID = $praticienID;
         $this->patientID = $patientID;
         $this->specialite = $specialite;
-        $this->dateTime = $dateTime;
+        $this->dateTime = \DateTime::createFromFormat('Y-m-d H:i', $dateTime);
     }
 }

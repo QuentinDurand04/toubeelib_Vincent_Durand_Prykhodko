@@ -57,7 +57,8 @@ class ServiceRendezvous implements ServiceRendezvousInterface
         $rendezvous = new Rendezvous(
             $inputRendezvousDTO->praticienID,
             $inputRendezvousDTO->patientID,
-            $inputRendezvousDTO->specialite
+            $inputRendezvousDTO->specialite,
+            $inputRendezvousDTO->dateTime
         );
 
         $rendezvousID = $this->rendezvousRepository->save($rendezvous);
@@ -79,6 +80,7 @@ class ServiceRendezvous implements ServiceRendezvousInterface
             $praticienID = $inputRendezvousDTO->praticienID;
             $specialiteID = $inputRendezvousDTO->specialiteID;
             $patientID = $inputRendezvousDTO->patientID;
+            $dateTime = $inputRendezvousDTO->dateTime->format('Y-m-d H:i:s');
 
             $praticien = $this->servicePraticien->getPraticienById($praticienID);
             $specialite = $this->servicePraticien->getSpecialiteById($specialiteID);
@@ -96,7 +98,7 @@ class ServiceRendezvous implements ServiceRendezvousInterface
             if ($rendezvous->getPraticienID() !== $praticienID || $rendezvous->getSpecialite() !== $specialite) {
                 $this->annulerRendezvous($rendezvousID);
 
-                $newRendezvousDTO = new InputRendezvousDTO($praticienID, $specialiteID, $patientID, $inputRendezvousDTO->dateTime);
+                $newRendezvousDTO = new InputRendezvousDTO($praticienID, $specialiteID, $patientID, $dateTime);
                 return $this->creerRendezvous($newRendezvousDTO);
             } else {
                 $rendezvous->setPatientID($patientID);
