@@ -14,16 +14,12 @@ class Rendezvous extends Entity
     protected \DateTime $dateTime;
     protected string $statut;
 
-    public function __construct(string $praticienID, string $patientID, string $specialite, DateTime $dateTime = null)
+    public function __construct(string $praticienID, string $patientID, string $specialite, DateTime $dateTime)
     {
         $this->praticienID = $praticienID;
         $this->patientID = $patientID;
         $this->specialite = $specialite;
-        if ($dateTime != null){
-            $this->dateTime = $dateTime;
-        } else {
-            $this->dateTime = \DateTime::createFromFormat('Y-m-d H:i','2024-09-02 09:30');
-        }
+        $this->dateTime = $dateTime;
     }
 
     public function getPraticienID(): string
