@@ -5,6 +5,7 @@ namespace toubeelib\core\services\auth;
 use Firebase\JWT\JWT;
 use toubeelib\core\repositoryInterfaces\UserRepositoryInterface;
 use toubeelib\core\domain\entities\users\User;
+use toubeelib\core\dto\AuthDTO;
 
 class AuthService
 {
@@ -17,7 +18,7 @@ class AuthService
         $this->secret = $secret;
     }
 
-    public function authenticate(string $email, string $password): array
+    public function authenticate(string $email, string $password): AuthDTO
     {
         $user = $this->userRepository->getUserByEmail($email);
 
@@ -39,14 +40,12 @@ class AuthService
 
         $token = JWT::encode($payload, $this->secret, 'HS512');
 
-        return [
-            'token' => $token,
-            'user' => [
-                'id' => $user->getId(),
-                'email' => $user->getEmail(),
-                'role' => $user->getRole()
-            ]
-        ];
+        return new AuthDTO($user->getId(), $user->getEmail(), $user->getRole(), $token);
+    }
+
+    public function getSecret(): string
+    {
+        return $this->secret;
     }
 
     public function getSecret(): string
