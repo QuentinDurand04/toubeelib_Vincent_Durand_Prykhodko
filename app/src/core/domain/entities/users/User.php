@@ -3,9 +3,7 @@
 
 namespace toubeelib\core\domain\entities\users;
 
-use Illuminate\Database\Eloquent\Model;
-
-class User extends Model
+class User
 {
     protected $table = 'users';
     protected $fillable = ['id', 'email', 'password', 'role'];

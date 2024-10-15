@@ -24,7 +24,7 @@ return  [
 
     'displayErrorDetails' => true,
     'logs.dir' => __DIR__ . '/../var/logs',
-    'JWT_SECRET' => getenv('JWT_SECRET_KEY'),
+    'JWT_SECRET' => 'secret',
 
     'log.rdv.name' => 'rdv.log',
     'logger.rdv.file' => function(ContainerInterface $c) {
@@ -32,17 +32,6 @@ return  [
     },
 
     'logger.rdv.level' => \Monolog\Level::Info,
-
-    'db' => [
-            'driver' => 'postgres',
-            'host' => 'localhost',
-            'database' => getenv('POSTGRES_DB'),
-            'username' =>getenv('POSTGRES_USER'),
-            'password' => getenv('POSTGRES_PASSWORD'),
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-    ],
 
     RendezvousRepositoryInterface::class => new ArrayRdvRepository(),
     PraticienRepositoryInterface::class => new ArrayPraticienRepository(),
