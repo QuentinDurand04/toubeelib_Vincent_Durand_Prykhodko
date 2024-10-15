@@ -5,13 +5,15 @@ namespace toubeelib\application\actions;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpNotFoundException;
-use DisponibiliteService; // Service métier à injecter
+use toubeelib\core\services\disponibilite\ServiceDisponibilite;
+
+// Service métier à injecter
 
 class ListerDisponibilitesAction extends AbstractAction
 {
-    private DisponibiliteService $disponibiliteService;
+    private ServiceDisponibilite $disponibiliteService;
 
-    public function __construct(DisponibiliteService $disponibiliteService)
+    public function __construct(ServiceDisponibilite $disponibiliteService)
     {
         $this->disponibiliteService = $disponibiliteService;
     }
@@ -21,7 +23,7 @@ class ListerDisponibilitesAction extends AbstractAction
         $idPraticien = $args['id'];
 
         try {
-            $disponibilites = $this->disponibiliteService->getDisponibilitesByPraticienId($idPraticien);
+            $disponibilites = $this->disponibiliteService->getDisponibiliteByPraticienId($idPraticien);
 
             if (!$disponibilites) {
                 throw new HttpNotFoundException($rq, "Aucune disponibilité trouvée pour le praticien $idPraticien");
@@ -40,13 +42,17 @@ class ListerDisponibilitesAction extends AbstractAction
                 ->withStatus(200);
 
         } catch (HttpNotFoundException $e) {
+            $responseBody = $rs->getBody();
+            $responseBody->write(json_encode(['message' => $e->getMessage()]));
             return $rs->withStatus(404)
                 ->withHeader('Content-Type', 'application/json')
-                ->getBody()->write(json_encode(['message' => $e->getMessage()]));
+                ->withBody($responseBody);
         } catch (\Exception $e) {
+            $responseBody = $rs->getBody();
+            $responseBody->write(json_encode(['message' => 'Erreur interne du serveur']));
             return $rs->withStatus(500)
                 ->withHeader('Content-Type', 'application/json')
-                ->getBody()->write(json_encode(['message' => 'Erreur interne du serveur']));
+                ->withBody($responseBody);
         }
     }
 }
