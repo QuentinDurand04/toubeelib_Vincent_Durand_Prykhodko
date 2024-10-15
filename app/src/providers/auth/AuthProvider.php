@@ -2,9 +2,8 @@
 
 namespace toubeelib\providers\auth;
 
-use Firebase\JWT\JWT;
 use toubeelib\core\services\auth\AuthService;
-use toubeelib\core\dto\AuthDTO;
+use Firebase\JWT\JWT;
 use Exception;
 
 class AuthProvider
@@ -19,24 +18,24 @@ class AuthProvider
     public function signin(string $email, string $password): array
     {
         try {
-            $authDTO = $this->authService->authenticate($email, $password);
+            $authData = $this->authService->authenticate($email, $password);
 
             $refreshPayload = [
                 'iss' => 'http://auth.toubeelib.net',
                 'aud' => 'http://api.toubeelib.net',
                 'iat' => time(),
                 'exp' => time() + 604800,
-                'sub' => $authDTO->getId(),
+                'sub' => $authData['user']['id'],
                 'data' => [
-                    'role' => $authDTO->getRole(),
-                    'email' => $authDTO->getEmail()
+                    'role' => $authData['user']['role'],
+                    'email' => $authData['user']['email']
                 ]
             ];
 
             $refreshToken = JWT::encode($refreshPayload, $this->authService->getSecret(), 'HS512');
 
             return [
-                'access_token' => $authDTO->getToken(),
+                'access_token' => $authData['token'],
                 'refresh_token' => $refreshToken
             ];
 

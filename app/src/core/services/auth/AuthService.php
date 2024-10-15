@@ -48,4 +48,9 @@ class AuthService
             ]
         ];
     }
+
+    public function getSecret(): string
+    {
+        return $this->secret;
+    }
 }
