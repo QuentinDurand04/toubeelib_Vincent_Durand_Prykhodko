@@ -8,12 +8,15 @@ use toubeelib\infrastructure\repositories\ArrayPraticienRepository;
 use toubeelib\infrastructure\repositories\ArrayRdvRepository;
 use Psr\Container\ContainerInterface;
 use toubeelib\application\actions\AnnulerRendezVousAction;
+use toubeelib\application\actions\ListerDisponibilitesAction;
 use toubeelib\application\actions\RendezVousAction;
 use toubeelib\application\actions\SigninAction;
 use toubeelib\core\services\auth\AuthService;
 use toubeelib\core\services\praticien\ServicePraticien;
 use toubeelib\core\services\praticien\ServicePraticienInterface;
 use toubeelib\core\repositoryInterfaces\UserRepositoryInterface;
+use toubeelib\core\services\disponibilite\ServiceDisponibiliteInterface;
+use toubeelib\core\services\disponibilite\ServiceDisponibilite;
 use toubeelib\providers\auth\AuthProvider;
 use toubeelib\infrastructure\repositories\BddUserRepository;
 
@@ -44,6 +47,7 @@ return  [
     RendezvousRepositoryInterface::class => new ArrayRdvRepository(),
     PraticienRepositoryInterface::class => new ArrayPraticienRepository(),
     UserRepositoryInterface::class => new BddUserRepository(),
+    ServiceDisponibiliteInterface::class => new ServiceDisponibilite($c->get(RendezvousRepositoryInterface::class)),
     AuthService::class => function(ContainerInterface $c){
         return new AuthService($c->get(UserRepositoryInterface::class), $c->get('JWT_SECRET'));
     },
@@ -64,6 +68,9 @@ return  [
     },
     SigninAction::class => function(ContainerInterface $c){
         return new SigninAction($c->get(AuthProvider::class));
+    },
+    ListerDisponibilitesAction::class => function(ContainerInterface $c){
+        return new ListerDisponibilitesAction($c->get(ServiceDisponibiliteInterface::class));
     }
 
     ] ;
