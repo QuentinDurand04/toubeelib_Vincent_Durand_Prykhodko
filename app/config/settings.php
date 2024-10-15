@@ -36,7 +36,9 @@ return  [
     RendezvousRepositoryInterface::class => new ArrayRdvRepository(),
     PraticienRepositoryInterface::class => new ArrayPraticienRepository(),
     UserRepositoryInterface::class => new BddUserRepository(),
-    ServiceDisponibiliteInterface::class => new ServiceDisponibilite($c->get(RendezvousRepositoryInterface::class)),
+    ServiceDisponibiliteInterface::class => function(ContainerInterface $c){
+        return new ServiceDisponibilite($c->get(RendezvousRepositoryInterface::class));
+    },
     AuthService::class => function(ContainerInterface $c){
         return new AuthService($c->get(UserRepositoryInterface::class), $c->get('JWT_SECRET'));
     },
