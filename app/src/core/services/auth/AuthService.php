@@ -47,4 +47,9 @@ class AuthService
     {
         return $this->secret;
     }
+
+    public function getSecret(): string
+    {
+        return $this->secret;
+    }
 }
