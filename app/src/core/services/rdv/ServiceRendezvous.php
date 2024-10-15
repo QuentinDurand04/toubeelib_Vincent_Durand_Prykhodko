@@ -78,16 +78,19 @@ class ServiceRendezvous implements ServiceRendezvousInterface
             $rendezvous = $this->rendezvousRepository->getRendezvousById($rendezvousID);
 
             $praticienID = $inputRendezvousDTO->praticienID;
-            $specialiteID = $inputRendezvousDTO->specialiteID;
+            $specialiteID = $inputRendezvousDTO->specialite;
+//            echo $specialiteID;
+
             $patientID = $inputRendezvousDTO->patientID;
             $dateTime = $inputRendezvousDTO->dateTime->format('Y-m-d H:i:s');
 
             $praticien = $this->servicePraticien->getPraticienById($praticienID);
-            $specialite = $this->servicePraticien->getSpecialiteById($specialiteID);
+//            $specialite = $this->servicePraticien->getSpecialiteById($specialiteID);
 
-            if (!in_array($specialiteID, $praticien->specialites)) {
-                throw new ServiceRendezVousInvalidInputDataException("La spécialité n'est pas valide pour ce praticien.");
-            }
+
+//            if (!in_array($specialiteID, $praticien->specialites)) {
+//                throw new ServiceRendezVousInvalidInputDataException("La spécialité n'est pas valide pour ce praticien.");
+//            }
 
             //patient inexist
 //            if(){
@@ -95,7 +98,7 @@ class ServiceRendezvous implements ServiceRendezvousInterface
 //            }
 
 
-            if ($rendezvous->getPraticienID() !== $praticienID || $rendezvous->getSpecialite() !== $specialite) {
+            if ($rendezvous->getPraticienID() !== $praticienID || $rendezvous->getSpecialite() !== $specialiteID) {
                 $this->annulerRendezvous($rendezvousID);
 
                 $newRendezvousDTO = new InputRendezvousDTO($praticienID, $specialiteID, $patientID, $dateTime);
