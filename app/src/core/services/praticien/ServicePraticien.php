@@ -46,4 +46,16 @@ class ServicePraticien implements ServicePraticienInterface
             throw new ServicePraticienInvalidDataException('invalid Specialite ID');
         }
     }
+
+    public function getPraticienByEmail(string $email): ?Praticien
+    {
+        foreach ($this->praticiens as $praticien) {
+            if ($praticien->getEmail() === $email) {
+                return $praticien;
+            }
+        }
+
+        return null;
+    }
+
 }
