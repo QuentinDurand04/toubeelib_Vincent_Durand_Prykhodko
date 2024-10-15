@@ -15,6 +15,7 @@ use toubeelib\core\services\praticien\ServicePraticien;
 use toubeelib\core\services\praticien\ServicePraticienInterface;
 use toubeelib\core\repositoryInterfaces\UserRepositoryInterface;
 use toubeelib\providers\auth\AuthProvider;
+use toubeelib\infrastructure\repositories\BddUserRepository;
 
 return  [
 
@@ -42,7 +43,7 @@ return  [
 
     RendezvousRepositoryInterface::class => new ArrayRdvRepository(),
     PraticienRepositoryInterface::class => new ArrayPraticienRepository(),
-    //UserRepositoryInterface::class => new ...,
+    UserRepositoryInterface::class => new BddUserRepository(),
     AuthService::class => function(ContainerInterface $c){
         return new AuthService($c->get(UserRepositoryInterface::class), $c->get('JWT_SECRET'));
     },
