@@ -15,6 +15,7 @@ class Rendezvous extends Entity
     protected string $statut;
     protected int $duree;
 
+
     public function __construct(string $praticienID, string $patientID, string $specialite, int $duree,  \DateTime | null $dateTime = null)
     {
         $this->praticienID = $praticienID;

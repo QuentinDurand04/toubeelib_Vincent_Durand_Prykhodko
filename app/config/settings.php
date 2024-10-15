@@ -9,28 +9,47 @@ use toubeelib\infrastructure\repositories\ArrayRdvRepository;
 use Psr\Container\ContainerInterface;
 use toubeelib\application\actions\AnnulerRendezVousAction;
 use toubeelib\application\actions\RendezVousAction;
+use toubeelib\application\actions\SigninAction;
+use toubeelib\core\services\auth\AuthService;
 use toubeelib\core\services\praticien\ServicePraticien;
 use toubeelib\core\services\praticien\ServicePraticienInterface;
+use toubeelib\core\repositoryInterfaces\UserRepositoryInterface;
+use toubeelib\providers\auth\AuthProvider;
+use toubeelib\infrastructure\repositories\BddUserRepository;
 
 return  [
 
     'displayErrorDetails' => true,
     'logs.dir' => __DIR__ . '/../var/logs',
-    'log.prog.name' => 'prog.log',
-    /*
-    'prog.logger' => function(ContainerInterface $c) {
-    
-        $logger = new \Monolog\Logger($c->get('log.prog.name'));
-    $logger->pushHandler(
-    new \Monolog\Handler\StreamHandler(
-        $c->get('log.prog.file'),
-        $c->get('log.prog.level')));
-        return $logger;
+    'JWT_SECRET' => getenv('JWT_SECRET_KEY'),
+
+    'log.rdv.name' => 'rdv.log',
+    'logger.rdv.file' => function(ContainerInterface $c) {
+        return $c->get('logs.dir') . '/rdv.log';
     },
-    */
+
+    'logger.rdv.level' => \Monolog\Level::Info,
+
+    'db' => [
+            'driver' => 'postgres',
+            'host' => 'localhost',
+            'database' => getenv('POSTGRES_DB'),
+            'username' =>getenv('POSTGRES_USER'),
+            'password' => getenv('POSTGRES_PASSWORD'),
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+    ],
 
     RendezvousRepositoryInterface::class => new ArrayRdvRepository(),
     PraticienRepositoryInterface::class => new ArrayPraticienRepository(),
+    UserRepositoryInterface::class => new BddUserRepository(),
+    AuthService::class => function(ContainerInterface $c){
+        return new AuthService($c->get(UserRepositoryInterface::class), $c->get('JWT_SECRET'));
+    },
+    AuthProvider::class => function(ContainerInterface $c){
+        return new AuthProvider($c->get(AuthService::class));
+    },
     ServicePraticienInterface::class => function(ContainerInterface $c){
         return new ServicePraticien($c->get(PraticienRepositoryInterface::class));
     },
@@ -42,5 +61,9 @@ return  [
     },
     AnnulerRendezVousAction::class => function(ContainerInterface $c){
         return new AnnulerRendezVousAction($c->get(ServiceRendezvousInterface::class));
+    },
+    SigninAction::class => function(ContainerInterface $c){
+        return new SigninAction($c->get(AuthProvider::class));
     }
-] ;
+
+    ] ;
