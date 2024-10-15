@@ -1,51 +1,47 @@
 <?php
 
+namespace toubeelib\providers\auth;
 
 use Firebase\JWT\JWT;
 use toubeelib\core\services\auth\AuthService;
+use toubeelib\core\dto\AuthDTO;
+use Exception;
 
 class AuthProvider
 {
     private AuthService $authService;
-    private string $secret;
-    private string $refreshSecret;
 
-    public function __construct(AuthService $authService, string $secret, string $refreshSecret)
+    public function __construct(AuthService $authService)
     {
         $this->authService = $authService;
-        $this->secret = $secret;
-        $this->refreshSecret = $refreshSecret;
     }
 
     public function signin(string $email, string $password): array
     {
-        $user = $this->authService->authenticate($email, $password);
+        try {
+            $authDTO = $this->authService->authenticate($email, $password);
 
-        $accessToken = $this->createToken($user, $this->secret);
+            $refreshPayload = [
+                'iss' => 'http://auth.toubeelib.net',
+                'aud' => 'http://api.toubeelib.net',
+                'iat' => time(),
+                'exp' => time() + 604800,
+                'sub' => $authDTO->getId(),
+                'data' => [
+                    'role' => $authDTO->getRole(),
+                    'email' => $authDTO->getEmail()
+                ]
+            ];
 
-        $refreshToken = $this->createToken($user, $this->refreshSecret, true);
+            $refreshToken = JWT::encode($refreshPayload, $this->authService->getSecret(), 'HS512');
 
-        return [
-            'access_token' => $accessToken,
-            'refresh_token' => $refreshToken,
-            'user' => $user
-        ];
-    }
+            return [
+                'access_token' => $authDTO->getToken(),
+                'refresh_token' => $refreshToken
+            ];
 
-    private function createToken(array $user, string $secret, bool $isRefresh = false): string
-    {
-        $payload = [
-            'iss' => 'http://auth.myapp.net',
-            'aud' => 'http://api.myapp.net',
-            'iat' => time(),
-            'exp' => time() + ($isRefresh ? 604800 : 3600),
-            'sub' => $user['id'],
-            'data' => [
-                'role' => $user['role'],
-                'user' => $user['email']
-            ]
-        ];
-
-        return JWT::encode($payload, $secret, 'HS512');
+        } catch (Exception $e) {
+            throw new Exception("Invalid credentials");
+        }
     }
 }

@@ -1,14 +1,13 @@
 <?php
 
-
 namespace toubeelib\application\actions;
 
-use AuthProvider;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use toubeelib\providers\auth\AuthProvider;
 use Slim\Exception\HttpBadRequestException;
 
-class SigninAction extends AbstractAction
+class SigninAction
 {
     private AuthProvider $authProvider;
 
@@ -17,26 +16,30 @@ class SigninAction extends AbstractAction
         $this->authProvider = $authProvider;
     }
 
-    public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        $data = $rq->getParsedBody();
+        $data = $request->getParsedBody();
 
-        if (!isset($data['email'], $data['password'])) {
-            throw new HttpBadRequestException($rq, 'Email and password are required');
-        }
-
-        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL) || !is_string($data['password'])) {
-            throw new HttpBadRequestException($rq, 'Invalid email or password format');
+        if (!isset($data['email']) || !isset($data['password'])) {
+            throw new HttpBadRequestException($request, 'Email et mot de passe requis');
         }
 
         try {
             $tokens = $this->authProvider->signin($data['email'], $data['password']);
 
-            $rs->getBody()->write(json_encode($tokens));
-            return $rs->withHeader('Content-Type', 'application/json')->withStatus(200);
+            $response->getBody()->write(json_encode([
+                'message' => 'Authentification réussie',
+                'access_token' => $tokens['access_token'],
+                'refresh_token' => $tokens['refresh_token']
+            ]));
+
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(200);
+
         } catch (\Exception $e) {
-            $rs->getBody()->write(json_encode(['error' => $e->getMessage()]));
-            return $rs->withHeader('Content-Type', 'application/json')->withStatus(401);
+            $response->getBody()->write(json_encode(['error' => $e->getMessage()]));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(401);
         }
     }
 }

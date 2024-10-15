@@ -4,11 +4,12 @@ namespace toubeelib\core\services\auth;
 
 use Firebase\JWT\JWT;
 use toubeelib\core\repositoryInterfaces\UserRepositoryInterface;
+use toubeelib\core\domain\entities\users\User;
 
 class AuthService
 {
-    private $userRepository;
-    private $secret;
+    private UserRepositoryInterface $userRepository;
+    private string $secret;
 
     public function __construct(UserRepositoryInterface $userRepository, string $secret)
     {
@@ -20,19 +21,19 @@ class AuthService
     {
         $user = $this->userRepository->getUserByEmail($email);
 
-        if (!$user || !password_verify($password, $user->password)) {
+        if (!$user || !password_verify($password, $user->getPassword())) {
             throw new \Exception("Invalid credentials");
         }
 
         $payload = [
-            'iss' => 'http://auth.myapp.net',
-            'aud' => 'http://api.myapp.net',
+            'iss' => 'http://auth.toubeelib.net',
+            'aud' => 'http://api.toubeelib.net',
             'iat' => time(),
             'exp' => time() + 3600,
-            'sub' => $user->id,
+            'sub' => $user->getId(),
             'data' => [
-                'role' => $user->role,
-                'user' => $user->email
+                'role' => $user->getRole(),
+                'email' => $user->getEmail()
             ]
         ];
 
@@ -41,9 +42,9 @@ class AuthService
         return [
             'token' => $token,
             'user' => [
-                'id' => $user->id,
-                'email' => $user->email,
-                'role' => $user->role
+                'id' => $user->getId(),
+                'email' => $user->getEmail(),
+                'role' => $user->getRole()
             ]
         ];
     }

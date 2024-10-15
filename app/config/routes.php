@@ -14,6 +14,8 @@ return function( \Slim\App $app):\Slim\App {
     $app->post('/rdvs', \toubeelib\application\actions\CreerRendezVousAction::class);
     $app->delete('/rdvs/{id}', \toubeelib\application\actions\AnnulerRendezVousAction::class);
     $app->get('/praticiens/{id}/disponibilites', \toubeelib\application\actions\ListerDisponibilitesAction::class);
+    $app->post('/signin', \toubeelib\application\actions\SigninAction::class);
+
 
 
     $app->options('/{routes:.+}', function( Request $rq, Response $rs, array $args) : Response {
