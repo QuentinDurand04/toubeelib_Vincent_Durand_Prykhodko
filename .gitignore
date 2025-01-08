@@ -1,6 +1,4 @@
 .idea/
-*config.ini
-*Config.ini
 # IDE
 .vscode/
 app/.DS_STORE
