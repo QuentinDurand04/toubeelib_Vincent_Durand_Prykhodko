@@ -2,8 +2,13 @@
 
 namespace toubeelib\core\services\praticien;
 
+// ! Not use
+use DI\Container;
 use Respect\Validation\Exceptions\NestedValidationException;
 use toubeelib\core\domain\entities\praticien\Praticien;
+// ! Not use
+
+
 use toubeelib\core\dto\InputPraticienDTO;
 use toubeelib\core\dto\PraticienDTO;
 use toubeelib\core\dto\SpecialiteDTO;
@@ -14,15 +19,15 @@ class ServicePraticien implements ServicePraticienInterface
 {
     private PraticienRepositoryInterface $praticienRepository;
 
-    public function __construct(PraticienRepositoryInterface $praticienRepository)
+    public function __construct(Container $cont)
     {
-        $this->praticienRepository = $praticienRepository;
+        $this->praticienRepository = $cont->get(PraticienRepositoryInterface::class);
     }
 
     public function createPraticien(InputPraticienDTO $p): PraticienDTO
     {
         // TODO : valider les données et créer l'entité
-        return new PraticienDTO($p);
+        return new PraticienDTO($$p);
 
 
     }
@@ -45,5 +50,13 @@ class ServicePraticien implements ServicePraticienInterface
         } catch(RepositoryEntityNotFoundException $e) {
             throw new ServicePraticienInvalidDataException('invalid Specialite ID');
         }
+    }
+
+    public function searchPraticien(PraticienDTO $p): array
+    {
+        $pratSearch= Praticien::fromDTO($p);
+        return array_map(function(Praticien $p){
+            return new PraticienDTO($p);
+        }, $this->praticienRepository->searchPraticiens($pratSearch));
     }
 }

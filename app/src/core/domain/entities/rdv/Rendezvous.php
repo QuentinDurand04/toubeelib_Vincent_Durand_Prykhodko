@@ -2,43 +2,42 @@
 
 namespace toubeelib\core\domain\entities\rdv;
 
-use DateTime;
+use DateTimeImmutable;
 use toubeelib\core\domain\entities\Entity;
-use toubeelib\core\dto\RendezvousDTO;
+use toubeelib\core\dto\InputRdvDto;
+use toubeelib\core\dto\RdvDTO;
+use toubeelib\core\dto\PraticienDTO;
 
-class Rendezvous extends Entity
+class RendezVous extends Entity
 {
-    protected string $praticienID;
-    protected string $patientID;
+    //todo :  0 maintenu(default) / 1 honoré / 2 non honoré / 3 annulé /  4 payé / 5 pas payé 
+    public const  MAINTENU = 0;
+    public const HONORE = 1;
+    public const  NON_HONORE = 2;
+    public const  ANNULE = 3;
+    public const  PAIE = 4;
+    public const  PAS_PAYE = 5;
+
+    protected \DateTimeImmutable $dateHeure;
+    protected string $praticienId;
     protected string $specialite;
-    protected \DateTime $dateTime;
-    protected string $statut;
-    protected int $duree;
+    protected string $patientId;
 
-
-    public function __construct(string $praticienID, string $patientID, string $specialite, int $duree,  \DateTime | null $dateTime = null)
+    protected int $status;
+    public function setStatus(int $status)
     {
-        $this->praticienID = $praticienID;
-        $this->patientID = $patientID;
-        $this->specialite = $specialite;
-        $this->duree = $duree;
-
-        $this->dateTime =  $dateTime == null ? new \DateTime() :  $dateTime;
+        $this->status = $status;
     }
 
-    public function __get(string $name): mixed
+
+    public function getDateHeure(): \DateTimeImmutable
     {
-        return $this->$name;
+        return $this->dateHeure;
     }
 
-    public function getPraticienID(): string
+    public function getPraticienId(): string
     {
-        return $this->praticienID;
-    }
-
-    public function getPatientID(): string
-    {
-        return $this->patientID;
+        return $this->praticienId;
     }
 
     public function getSpecialite(): string
@@ -46,43 +45,41 @@ class Rendezvous extends Entity
         return $this->specialite;
     }
 
-    public function getDateTime(): \DateTime
+    public function getPatientId(): string
     {
-        return $this->dateTime;
+        return $this->patientId;
     }
 
-    public function getStatut(): string
+    public function getStatus(): int
     {
-        return $this->statut;
+        return $this->status;
     }
 
-    public function setPraticienID(string $praticienID): void
+    /**
+     * $r1 = new RendezVous('p1', 'pa1', 'A', \DateTimeImmutable::createFromFormat('Y-m-d H:i','2024-09-02 09:00') );
+     *       $r1->setID('r1');
+     * @param mixed $status
+     */
+    public function __construct(string $praticienId, string $patientId, string $specialite, \DateTimeImmutable $dateHeure, $status = RendezVous::MAINTENU)
     {
-        $this->praticienID = $praticienID;
-    }
-
-    public function setPatientID(string $patientID): void
-    {
-        $this->patientID = $patientID;
-    }
-
-    public function setSpecialite(string $specialite): void
-    {
+        $this->praticienId = $praticienId;
+        $this->patientId = $patientId;
+        $this->dateHeure = $dateHeure;
         $this->specialite = $specialite;
+        $this->status = $status;
     }
 
-    public function setDateTime(\DateTime $dateTime): void
+    public static function fromInputDto(InputRdvDto $rdv):RendezVous
     {
-        $this->dateTime = $dateTime;
+        return new RendezVous(
+            $rdv->getPraticienId(),
+            $rdv->getPatientId(),
+            $rdv->getSpecialite(),
+            $rdv->getDateHeure());
     }
 
-    public function setStatut(string $statut): void
+    public function toDTO(PraticienDTO $praticienDTO): RdvDTO
     {
-        $this->statut = $statut;
-    }
-
-    public function toDTO(): RendezvousDTO
-    {
-        return new RendezvousDTO($this->id, $this);
+        return new RdvDTO($this, $praticienDTO);
     }
 }

@@ -1,6 +1,0 @@
-{
-    "require": {
-        "monolog/monolog": "^3.7",
-        "illuminate/database": "v11.26.0"
-    }
-}

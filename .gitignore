@@ -1,13 +1,25 @@
 .idea/
+*config.ini
+*Config.ini
 # IDE
 .vscode/
+app/.DS_STORE
 .DS_STORE
+.DS_Store
+app/.DS_Store
 /coverage/
 # Vendor
 /vendor/
+vendor
+*.iml
+.idea
+*.env
 # Logs
 /app/logs/*
+/app/var/*
+app/var/logs
 !/app/logs/README.md
+/app/vendor
 # Cache
 /var/cache/*
 .phpunit.result.cache

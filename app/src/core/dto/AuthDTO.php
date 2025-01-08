@@ -2,38 +2,33 @@
 
 namespace toubeelib\core\dto;
 
-class AuthDTO
-{
-    public string $id;
-    public string $email;
-    public int $role;
-    public string $token;
+use toubeelib\core\domain\entities\User;
 
-    public function __construct(string $id, string $email, int $role, string $token)
-    {
+class AuthDTO extends DTO{
+    protected string $id;
+    protected int $role;
+    protected string $atoken;
+    protected string $refreshToken;
+
+    public function __construct(string $id, int $role){
+        $this->id=$id;
+        $this->role=$role;
+    }
+
+    public function setAtoken(string $tok):void {
+        $this->atoken = $tok;
+    }
+
+    public function setId(string $id){
         $this->id = $id;
-        $this->email = $email;
+        }
+    public function setRole(int $role){
         $this->role = $role;
-        $this->token = $token;
     }
 
-    public function getId(): string
-    {
-        return $this->id;
+    public static function fromUser(User $user){
+        $this->id = $user->id;
+        $this->role = $user->role;
     }
 
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-
-    public function getRole(): int
-    {
-        return $this->role;
-    }
-
-    public function getToken(): string
-    {
-        return $this->token;
-    }
 }
