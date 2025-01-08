@@ -13,7 +13,6 @@ app/.DS_Store
 vendor
 *.iml
 .idea
-*.env
 # Logs
 /app/logs/*
 /app/var/*
