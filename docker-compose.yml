@@ -3,6 +3,24 @@ networks:
     driver: bridge
 services:
 
+  # Service API Gateway
+  api.gateway:
+    build:
+      context: build
+      dockerfile: 8.3-cli.Dockerfile
+    container_name: api_gateway
+    env_file: ./gateway.env
+    ports:
+      - '6090:80'
+    volumes:
+      - ./gateway:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - toubeelib.net
+    depends_on:
+      - api.toubeelib
+    command: php -S 0.0.0.0:80 -t public
+
   # service api.toubeelib : api pour la prise de rdv
   #
   api.toubeelib:
