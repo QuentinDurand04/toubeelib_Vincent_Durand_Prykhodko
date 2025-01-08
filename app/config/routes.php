@@ -21,33 +21,33 @@ return function (\Slim\App $app): \Slim\App {
 
     //RENDEZVOUS
     $app->post('/rdvs[/]', \toubeelib\application\actions\PostCreateRdv::class)
-        ->setName('createRdv')
+        ->setName('createRdv');
 //        ->add(AuthnMiddleware::class);
     ;
 
     $app->get('/rdvs/{id}[/]', \toubeelib\application\actions\GetRdvId::class)
-        ->setName('getRdv')
+        ->setName('getRdv');
 //        ->add(AuthzRDV::class)
 //        ->add(AuthnMiddleware::class);
 
     //PATIENTS
     $app->get('/patients/{id}/rdvs[/]', GetRdvByPatient::class)
-        ->setName('rdvPatient')
+        ->setName('rdvPatient');
 //        ->add(AuthzPatient::class)
 //        ->add(AuthnMiddleware::class);
 
     $app->get("/patients/{id}[/]", GetPatient::class)
-        ->setName('getPatient')
+        ->setName('getPatient');
 //        ->add(AuthzPatient::class)
 //        ->add(AuthnMiddleware::class);
 
     //PRATICIENS
     $app->get('/praticiens/{id}/rdvs[/]', \toubeelib\application\actions\GetPraticienPlanning::class)
-        ->setName('planningPraticien')
+        ->setName('planningPraticien');
 //        ->add(AuthzPraticiens::class)
 //        ->add(AuthnMiddleware::class);
 
-    $app->get("/praticiens/{id}[/]", GetPraticien::class )->setName('getPraticien')
+    $app->get("/praticiens/{id}[/]", GetPraticien::class )->setName('getPraticien');
 //        ->add(AuthnMiddleware::class);
 
     $app->post('/signin[/]', PostSignIn::class)->setName('signIn');
