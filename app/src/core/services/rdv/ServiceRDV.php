@@ -18,7 +18,6 @@ use toubeelib\core\services\ServiceOperationInvalideException;
 use toubeelib\core\services\praticien\ServicePraticien;
 use toubeelib\core\services\praticien\ServicePraticienInterface;
 use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
-use toubeelib\core\services\ServiceRessourceNotFoundException;
 
 
 class ServiceRDV implements ServiceRDVInterface {
