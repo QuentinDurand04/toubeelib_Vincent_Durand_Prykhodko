@@ -23,12 +23,16 @@ class PraticienActions extends AbstractAction{
         try{
             if(!isset($args['id'])){
                 $response = $this->guzzle->get("/praticiens");
+                //sinon si la requete contient un id et /rdvs
+            }elseif($rq->getUri()->getPath() == "/praticiens/".$args['id']."/rdvs"){
+                $response = $this->guzzle->get("/praticiens/".$args['id']."/rdvs");
             }else{
                 $response = $this->guzzle->get("/praticiens/".$args['id']);
             }
             return $response;
         }catch(ClientException $e){
-            throw new HttpNotFoundException($rq, "Id du praticien invalide");
+            throw $e;
+            //throw new HttpNotFoundException($rq, "Id du praticien invalide");
         }
     }
 }
