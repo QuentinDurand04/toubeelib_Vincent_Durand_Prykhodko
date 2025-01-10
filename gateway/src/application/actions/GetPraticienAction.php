@@ -1,6 +1,6 @@
 <?php
 
-namespace toubeelib\application\actions;
+namespace gateway\application\actions;
 
 use DI\Container;
 use Psr\Http\Message\ResponseInterface;

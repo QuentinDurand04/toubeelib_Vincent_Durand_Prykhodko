@@ -2,21 +2,9 @@
 declare(strict_types=1);
 
 use Slim\Exception\HttpNotFoundException;
-
-
-
-use toubeelib\application\actions\GetPatient;
-use toubeelib\application\actions\GetAllPraticienAction;
-use \toubeelib\application\actions\HomeAction;
-use toubeelib\application\actions\GetPraticien;
-use toubeelib\application\actions\GetPraticienAction;
-use toubeelib\application\actions\GetRdvByPatient;
-
-use toubeelib\application\actions\PostSignIn;
-use toubeelib\middlewares\AuthnMiddleware;
-use toubeelib\middlewares\AuthzPatient;
-use toubeelib\middlewares\AuthzPraticiens;
-use toubeelib\middlewares\AuthzRDV;
+use gateway\application\actions\GetPraticienAction;
+use gateway\application\actions\GetAllPraticienAction;
+use gateway\application\actions\HomeAction;
 
 return function (\Slim\App $app): \Slim\App {
 
