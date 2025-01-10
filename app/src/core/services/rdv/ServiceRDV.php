@@ -72,7 +72,6 @@ class ServiceRDV implements ServiceRDVInterface {
         return $rdv->toDTO($praticien);
     }
 
-    // TODO: transferer methode a ServicePraticien
     public function getListeDisponibilite(string $idPraticien): array
     {
 
@@ -225,6 +224,13 @@ class ServiceRDV implements ServiceRDVInterface {
         }
         
     }
+
+    public function getRdvsByPraticien(string $id): array {
+        return array_map(function(RendezVous $rdv) {
+            return $rdv->toDTO($this->servicePraticien->getPraticienById($rdv->getPraticienId()));
+        }, $this->rdvRepository->getRdvsByPraticien($id));
+    }
+
 
     public function getAllRdvs(): array {
         return array_map(function(RendezVous $rdv) {
