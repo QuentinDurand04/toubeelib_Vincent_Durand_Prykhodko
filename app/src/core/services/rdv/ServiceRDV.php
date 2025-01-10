@@ -7,7 +7,6 @@ use DateInterval;
 use DateTimeImmutable;
 use Error;
 use Faker\Core\Uuid;
-use PHPUnit\Framework\MockObject\Exception;
 use Ramsey\Uuid\Uuid as RamseyUuid;
 use toubeelib\core\domain\entities\rdv\RendezVous;
 use toubeelib\core\dto\InputRdvDto;
@@ -16,10 +15,8 @@ use toubeelib\core\repositoryInterfaces\RdvRepositoryInterface;
 use toubeelib\core\services\ServiceOperationInvalideException;
 use toubeelib\core\services\praticien\ServicePraticien;
 use toubeelib\core\services\praticien\ServicePraticienInterface;
-use toubeelib\core\services\rdv\ServiceRDVInterface;
 use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
-use toubeelib\core\services\rdv\ServiceRDVInvalidDataException;
-use toubeelib\core\services\rdv\ServiceRessourceNotFoundException;
+
 
 class ServiceRDV implements ServiceRDVInterface {
     private RdvRepositoryInterface $rdvRepository;
@@ -227,6 +224,9 @@ class ServiceRDV implements ServiceRDVInterface {
         
     }
 
-
-
+    public function getAllRdvs(): array {
+        return array_map(function(RendezVous $rdv) {
+            return $rdv->toDTO($this->servicePraticien->getPraticienById($rdv->getPraticienId()));
+        }, $this->rdvRepository->getAllRdvs());
+    }
 }

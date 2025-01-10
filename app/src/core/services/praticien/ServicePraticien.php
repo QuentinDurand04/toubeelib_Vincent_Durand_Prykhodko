@@ -59,4 +59,11 @@ class ServicePraticien implements ServicePraticienInterface
             return new PraticienDTO($p);
         }, $this->praticienRepository->searchPraticiens($pratSearch));
     }
+
+    public function getAllPraticien(): array
+    {
+        return array_map(function(Praticien $p){
+            return new PraticienDTO($p);
+        }, $this->praticienRepository->getAllPraticiens());
+    }
 }
