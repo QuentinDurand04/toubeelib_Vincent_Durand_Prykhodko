@@ -14,6 +14,7 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Formatter\LineFormatter;
 use toubeelib\application\actions\GetAllPraticienAction;
+use toubeelib\application\actions\GetPraticienAction;
 use toubeelib\application\actions\HomeAction;
 
 return [
@@ -79,6 +80,9 @@ return [
 
     GetAllPraticienAction::class => function (ContainerInterface $c) {
         return new GetAllPraticienAction($c->get("guzzle.client"));
+    },
+    GetPraticienAction::class => function (ContainerInterface $c) {
+        return new GetPraticienAction($c->get("guzzle.client"));
     },
    
 

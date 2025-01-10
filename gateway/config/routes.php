@@ -9,6 +9,7 @@ use toubeelib\application\actions\GetPatient;
 use toubeelib\application\actions\GetAllPraticienAction;
 use \toubeelib\application\actions\HomeAction;
 use toubeelib\application\actions\GetPraticien;
+use toubeelib\application\actions\GetPraticienAction;
 use toubeelib\application\actions\GetRdvByPatient;
 
 use toubeelib\application\actions\PostSignIn;
@@ -23,6 +24,8 @@ return function (\Slim\App $app): \Slim\App {
 
     
     $app->get("/praticiens", GetAllPraticienAction::class )->setName('getAllPraticiens');
+
+    $app->get("/praticiens/{id}", GetPraticienAction::class)->setName('getPraticien');
 
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {
