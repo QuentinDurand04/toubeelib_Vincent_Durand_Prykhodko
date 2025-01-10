@@ -6,6 +6,7 @@ use DI\Container;
 use DateInterval;
 use DateTimeImmutable;
 use Error;
+use Exception;
 use Faker\Core\Uuid;
 use Ramsey\Uuid\Uuid as RamseyUuid;
 use toubeelib\core\domain\entities\rdv\RendezVous;
@@ -16,6 +17,7 @@ use toubeelib\core\services\ServiceOperationInvalideException;
 use toubeelib\core\services\praticien\ServicePraticien;
 use toubeelib\core\services\praticien\ServicePraticienInterface;
 use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use toubeelib\core\services\ServiceRessourceNotFoundException;
 
 
 class ServiceRDV implements ServiceRDVInterface {
