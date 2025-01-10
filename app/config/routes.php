@@ -23,6 +23,9 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/rdvs[/]', \toubeelib\application\actions\GetAllRdvs::class)
         ->setName('getAllRdvs');
 
+    $app->get('/rdvs/praticien/{id}[/]', \toubeelib\application\actions\GetPraticienRdvs::class)
+        ->setName('rdvPraticien');
+
     $app->post('/rdvs[/]', \toubeelib\application\actions\PostCreateRdv::class)
         ->setName('createRdv');
 //        ->add(AuthnMiddleware::class);
