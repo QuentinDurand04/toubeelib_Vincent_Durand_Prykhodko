@@ -15,7 +15,7 @@ class GetAllPraticien extends AbstractAction
     {
         try{
 
-            $praticiens = $this->servicePraticien->getAllPraticien();
+            $praticiens = $this->servicePraticien->getAllPraticiens();
             return JsonRenderer::render($rs, 200, $praticiens);
 
         }catch(NestedValidationException $e){
