@@ -19,7 +19,7 @@ use toubeelib\core\services\praticien\ServicePraticienInterface;
 use toubeelib\core\services\rdv\ServiceRDVInterface;
 use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 use toubeelib\core\services\rdv\ServiceRDVInvalidDataException;
-use toubeelib\core\services\rdv\ServiceRessourceNotFoundException;
+use toubeelib\core\services\ServiceRessourceNotFoundException;
 
 class ServiceRDV implements ServiceRDVInterface {
     private RdvRepositoryInterface $rdvRepository;
