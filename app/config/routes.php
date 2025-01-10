@@ -20,6 +20,9 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/', \toubeelib\application\actions\HomeAction::class);
 
     //RENDEZVOUS
+    $app->get('/rdvs[/]', \toubeelib\application\actions\GetAllRdvs::class)
+        ->setName('getAllRdvs');
+
     $app->post('/rdvs[/]', \toubeelib\application\actions\PostCreateRdv::class)
         ->setName('createRdv');
 //        ->add(AuthnMiddleware::class);
@@ -42,6 +45,9 @@ return function (\Slim\App $app): \Slim\App {
 //        ->add(AuthnMiddleware::class);
 
     //PRATICIENS
+    $app->get('/praticiens[/]', \toubeelib\application\actions\GetAllPraticien::class)
+        ->setName('getAllPraticien');
+
     $app->get('/praticiens/{id}/rdvs[/]', \toubeelib\application\actions\GetPraticienPlanning::class)
         ->setName('planningPraticien');
 //        ->add(AuthzPraticiens::class)

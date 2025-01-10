@@ -134,4 +134,45 @@ class PgPraticienRepository implements PraticienRepositoryInterface{
             throw new RepositoryInternalException('erreur bd');
         }
     }
+
+    public function getAllPraticiens(): array
+    {
+        $query = "
+        select 
+        praticien.id as id,
+        praticien.nom as nom,
+        praticien.prenom as prenom,
+        praticien.adresse as adresse,
+        praticien.tel as tel,
+        specialite.id as speid,
+        specialite.label as spelabel,
+        specialite.description as spedes 
+        from 
+        praticien,
+        specialite
+        where 
+        praticien.specialite = specialite.id
+        ;";
+        try{
+            $allpraticiens = $this->pdo->query($query);
+            $praticiens = $allpraticiens->fetchAll();
+            if(!$praticiens){
+                $this->loger->info("Nombre de praticien trouvé : 0");
+                return [];
+            }
+            $retour = [];
+            foreach($praticiens as $p){
+                $pra = new Praticien($p['nom'],$p['prenom'],$p['adresse'],$p['tel']);
+                $pra->setId($p['id']);
+                $pra->setSpecialite(new Specialite($p['speid'],$p['spelabel'],$p['spedes']));
+                $retour[]= $pra;
+            }
+            $this->loger->info("Nombre de praticien trouvé : ". count($retour));
+            return $retour;
+
+        }catch(\PDOException $e){
+            $this->loger->error($e->getMessage());
+            throw new RepositoryInternalException('erreur bd');
+        }
+    }
 }
