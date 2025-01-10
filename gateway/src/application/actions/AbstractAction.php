@@ -11,7 +11,6 @@ use Psr\Http\Message\ServerRequestInterface;
 
 abstract class AbstractAction
 {
-    protected \GuzzleHttp\Client $guzzle;
     protected Container $cont;
 
 
