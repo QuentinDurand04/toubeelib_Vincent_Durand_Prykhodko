@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpNotFoundException;
 
 
-class GetPraticienAction extends AbstractAction{
+class PraticienActions extends AbstractAction{
 
     private $guzzle;
 
@@ -21,7 +21,11 @@ class GetPraticienAction extends AbstractAction{
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         try{
-            $response = $this->guzzle->get("/praticiens/".$args['id']);
+            if(!isset($args['id'])){
+                $response = $this->guzzle->get("/praticiens");
+            }else{
+                $response = $this->guzzle->get("/praticiens/".$args['id']);
+            }
             return $response;
         }catch(ClientException $e){
             throw new HttpNotFoundException($rq, "Id du praticien invalide");
