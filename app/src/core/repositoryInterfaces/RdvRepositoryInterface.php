@@ -12,6 +12,7 @@ interface RdvRepositoryInterface
 
     public function __construct(Container $cont);
     public function getRdvById(string $id): RendezVous;
+    public function getAllRdvs(): array;
     public function addRdv(string $id, RendezVous $rdv):void;
     public function delete(string $id):void;
     public function cancelRdv(string $id,  ): void;
