@@ -6,6 +6,8 @@ use Slim\Exception\HttpNotFoundException;
 
 
 use toubeelib\application\actions\GetPatient;
+use toubeelib\application\actions\GetAllPraticienAction;
+use \toubeelib\application\actions\HomeAction;
 use toubeelib\application\actions\GetPraticien;
 use toubeelib\application\actions\GetRdvByPatient;
 
@@ -17,10 +19,10 @@ use toubeelib\middlewares\AuthzRDV;
 
 return function (\Slim\App $app): \Slim\App {
 
-    $app->get('/', \toubeelib\application\actions\HomeAction::class);
+    $app->get('/', HomeAction::class);
 
     
-    $app->get("/praticiens", GetAllPraticienAction::class )->setName('getPraticien');
+    $app->get("/praticiens", GetAllPraticienAction::class )->setName('getAllPraticiens');
 
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {
