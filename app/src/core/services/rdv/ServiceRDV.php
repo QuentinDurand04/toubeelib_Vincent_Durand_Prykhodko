@@ -76,7 +76,7 @@ class ServiceRDV implements ServiceRDVInterface {
     {
 
         $results = [];
-        $listeRDV = $this->rdvRepository->getRdvByPraticien($idPraticien);
+        $listeRDV = $this->rdvRepository->getRdvsByPraticien($idPraticien);
         $listeRDVHorraires = array_map(function ($rdv) {
             if ($rdv->status != RendezVous::ANNULE) {
                 $rr= $rdv->dateHeure->format($this->dateFormat);
@@ -107,7 +107,7 @@ class ServiceRDV implements ServiceRDVInterface {
         //echo "test for getListeDisponibiliteDate";
 
         $results = [];
-        $listeRDV = $this->rdvRepository->getRdvByPraticien($idPraticien);
+        $listeRDV = $this->rdvRepository->getRdvsByPraticien($idPraticien);
         $listeRDVHorraires = array_map(function ($rdv) {
             if ($rdv->status != RendezVous::ANNULE) {
                 $rr= $rdv->dateHeure->format($this->dateFormat);
@@ -150,7 +150,7 @@ class ServiceRDV implements ServiceRDVInterface {
             ? (new \DateTimeImmutable($test_end_Date))->setTime(ServiceRDV::HDEBUT[0], ServiceRDV::HDEBUT[1]) 
             : (new \DateTimeImmutable('now'))->setTime(ServiceRDV::HDEBUT[0], ServiceRDV::HDEBUT[1])->add(new DateInterval('P31D'));
         
-        $listeRDV = $this->rdvRepository->getRdvByPraticien($idPraticien);
+        $listeRDV = $this->rdvRepository->getRdvsByPraticien($idPraticien);
         foreach($listeRDV as $rdv) {
             if ($rdv->status != RendezVous::ANNULE && $rdv->dateHeure->format('U') > $startDate->format('U') && $rdv->dateHeure->format('U') < $endDate->format('U')) {
                 $results[] = $rdv->toDTO($this->servicePraticien->getPraticienById($idPraticien));
