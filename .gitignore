@@ -14,6 +14,7 @@ vendor
 # Logs
 /app/logs/*
 /app/var/*
+app/vendor/*
 app/var/logs
 !/app/logs/README.md
 /app/vendor
