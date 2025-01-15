@@ -105,15 +105,46 @@ services:
       - ./app/sql:/var/sql'
 
   
-  praticiens.db:
+  praticiens.auth.db:
     image: 'postgres:latest'
-    env_file: ./toubeelibdb.env
+    env_file: ./praticiensauthdb.env
     ports:
-      - '5032:5432'
+      - '5435:5432'
     networks:
       - toubeelib.net
     volumes:
       - ./app/sql:/var/sql'
+
+  rdvs.auth.db:
+    image: 'postgres:latest'
+    env_file: ./rdvsauthdb.env
+    ports:
+      - '5436:5432'
+    networks:
+      - toubeelib.net
+    volumes:
+      - ./app/sql:/var/sql'    
+
+  praticiens.db:
+    image: 'postgres:latest'
+    env_file: ./praticiensdb.env
+    ports:
+      - '5431:5432'
+    networks:
+      - toubeelib.net
+    volumes:
+      - ./app/sql:/var/sql'
+
+
+  rdvs.db:
+    image: 'postgres:latest'
+    env_file: ./rdvsdb.env
+    ports:
+      - '5430:5432'
+    networks:
+      - toubeelib.net
+    volumes:
+      - ./app/sql:/var/sql'   
   #
   # service administration des bases sql
   #
