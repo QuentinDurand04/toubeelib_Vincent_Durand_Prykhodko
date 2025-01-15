@@ -33,7 +33,7 @@ services:
     ports:
       - '6080:80'
     volumes:
-      - ./app:/var/php
+      - ./app:/var/php/
       - ./sql:/var/sql
     working_dir: /var/php
     networks:
@@ -53,7 +53,7 @@ services:
     ports:
       - '6070:80'
     volumes:
-      - ./app:/var/php
+      - ./app-praticiens:/var/php
       - ./sql:/var/sql
     working_dir: /var/php
     networks:
@@ -73,7 +73,7 @@ services:
     ports:
       - '6060:80'
     volumes:
-      - ./app:/var/php
+      - ./app-rdvs:/var/php
       - ./sql:/var/sql
     working_dir: /var/php
     networks:
@@ -113,7 +113,7 @@ services:
     networks:
       - toubeelib.net
     volumes:
-      - ./app/sql:/var/sql'
+      - ./app-praticiens/sql:/var/sql'
 
   rdvs.auth.db:
     image: 'postgres:latest'
@@ -123,7 +123,7 @@ services:
     networks:
       - toubeelib.net
     volumes:
-      - ./app/sql:/var/sql'    
+      - ./app-rdvs/sql:/var/sql'    
 
   praticiens.db:
     image: 'postgres:latest'
@@ -133,7 +133,7 @@ services:
     networks:
       - toubeelib.net
     volumes:
-      - ./app/sql:/var/sql'
+      - ./app-praticiens/sql:/var/sql'
 
 
   rdvs.db:
@@ -144,7 +144,7 @@ services:
     networks:
       - toubeelib.net
     volumes:
-      - ./app/sql:/var/sql'   
+      - ./app-rdvs/sql:/var/sql'   
   #
   # service administration des bases sql
   #
