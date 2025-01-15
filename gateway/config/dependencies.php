@@ -3,6 +3,7 @@
 use gateway\application\actions\GetAllPraticienAction;
 use Psr\Container\ContainerInterface;
 use gateway\application\actions\GetPraticienAction;
+use gateway\application\actions\PraticienActions;
 
 return [
 
@@ -18,6 +19,9 @@ return [
     },
     GetPraticienAction::class => function (ContainerInterface $c) {
         return new GetPraticienAction($c->get("guzzle.client"));
+    },
+    PraticienActions::class => function (ContainerInterface $c) {
+        return new PraticienActions($c->get("guzzle.client"));
     },
 
 ];

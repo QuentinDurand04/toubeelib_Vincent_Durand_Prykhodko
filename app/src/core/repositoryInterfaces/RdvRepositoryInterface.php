@@ -17,6 +17,7 @@ interface RdvRepositoryInterface
     public function delete(string $id):void;
     public function cancelRdv(string $id,  ): void;
     public function getRdvByPraticien(string $id):array;
+    public function getRdvsByPraticien(string $date):array;
 
     public function getRdvByPatient(string $id):array;
     public function modifierRdv(RendezVous $rdv): void;
