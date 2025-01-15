@@ -19,31 +19,6 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->get('/', \toubeelib\application\actions\HomeAction::class);
 
-    //RENDEZVOUS
-    $app->get('/rdvs[/]', \toubeelib\application\actions\GetAllRdvs::class)
-        ->setName('getAllRdvs');
-
-    $app->post('/rdvs[/]', \toubeelib\application\actions\PostCreateRdv::class)
-        ->setName('createRdv');
-//        ->add(AuthnMiddleware::class);
-    ;
-
-    $app->get('/rdvs/{id}[/]', \toubeelib\application\actions\GetRdvId::class)
-        ->setName('getRdv');
-//        ->add(AuthzRDV::class)
-//        ->add(AuthnMiddleware::class);
-
-    //PATIENTS
-    $app->get('/patients/{id}/rdvs[/]', GetRdvByPatient::class)
-        ->setName('rdvPatient');
-//        ->add(AuthzPatient::class)
-//        ->add(AuthnMiddleware::class);
-
-    $app->get("/patients/{id}[/]", GetPatient::class)
-        ->setName('getPatient');
-//        ->add(AuthzPatient::class)
-//        ->add(AuthnMiddleware::class);
-
     //PRATICIENS
     $app->get('/praticiens[/]', \toubeelib\application\actions\GetAllPraticien::class)
         ->setName('getAllPraticien');

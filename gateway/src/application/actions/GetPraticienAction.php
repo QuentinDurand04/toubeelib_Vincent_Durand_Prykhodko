@@ -18,7 +18,7 @@ class GetPraticienAction extends AbstractAction{
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $response = $this->guzzle->get("/praticiens/".$args['id']);
+        $response = $this->guzzle->get("api.praticiens/praticiens/".$args['id']);
         return $response;
     }
 }

@@ -20,7 +20,7 @@ class GetAllPraticienAction extends AbstractAction{
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $response = $this->guzzle->get("api.toubeelib/praticiens");
+        $response = $this->guzzle->get("api.praticiens/praticiens");
         return JsonRenderer::render($rs, $response->getStatusCode(), json_decode($response->getBody()->getContents()));
     }
 }

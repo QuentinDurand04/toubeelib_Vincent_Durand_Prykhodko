@@ -103,6 +103,17 @@ services:
       - toubeelib.net
     volumes:
       - ./app/sql:/var/sql'
+
+  
+  praticiens.db:
+    image: 'postgres:latest'
+    env_file: ./toubeelibdb.env
+    ports:
+      - '5032:5432'
+    networks:
+      - toubeelib.net
+    volumes:
+      - ./app/sql:/var/sql'
   #
   # service administration des bases sql
   #
