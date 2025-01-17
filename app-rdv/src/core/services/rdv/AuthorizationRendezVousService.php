@@ -1,10 +1,10 @@
 <?php
-namespace toubeelib\core\services\rdv;
+namespace rdv\core\services\rdv;
 use Psr\Container\ContainerInterface;
-use toubeelib\core\repositoryInterfaces\RdvRepositoryInterface;
-use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
-use toubeelib\core\services\ServiceRessourceNotFoundException;
-use toubeelib\core\services\rdv\AuthorizationRendezVousServiceInterface;
+use rdv\core\repositoryInterfaces\RdvRepositoryInterface;
+use rdv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use rdv\core\services\ServiceRessourceNotFoundException;
+use rdv\core\services\rdv\AuthorizationRendezVousServiceInterface;
 
 class AuthorizationRendezVousService implements AuthorizationRendezVousServiceInterface{
     protected RdvRepositoryInterface $rdvrepo;

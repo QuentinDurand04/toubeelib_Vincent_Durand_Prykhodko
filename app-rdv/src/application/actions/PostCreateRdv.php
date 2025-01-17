@@ -1,6 +1,6 @@
 <?php
 
-namespace toubeelib\application\actions;
+namespace rdv\application\actions;
 
 use Error;
 use Psr\Http\Message\ResponseInterface;
@@ -10,13 +10,13 @@ use Respect\Validation\Validator;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Routing\RouteContext;
-use toubeelib\application\renderer\JsonRenderer;
-use toubeelib\core\dto\InputRdvDto;
-use toubeelib\core\services\praticien\ServicePraticien;
-use toubeelib\core\services\rdv\ServiceRDV;
-use toubeelib\core\services\rdv\ServiceRDVInvalidDataException;
-use toubeelib\infrastructure\repositories\ArrayPraticienRepository;
-use toubeelib\infrastructure\repositories\ArrayRdvRepository;
+use rdv\application\renderer\JsonRenderer;
+use rdv\core\dto\InputRdvDto;
+use rdv\core\services\praticien\ServicePraticien;
+use rdv\core\services\rdv\ServiceRDV;
+use rdv\core\services\rdv\ServiceRDVInvalidDataException;
+use rdv\infrastructure\repositories\ArrayPraticienRepository;
+use rdv\infrastructure\repositories\ArrayRdvRepository;
 
 class PostCreateRdv extends AbstractAction
 {

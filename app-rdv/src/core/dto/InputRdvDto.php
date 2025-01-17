@@ -1,12 +1,12 @@
 <?php
 
-namespace toubeelib\core\dto;
+namespace rdv\core\dto;
 
 use DateTimeImmutable;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use toubeelib\application\actions\AbstractAction;
-use toubeelib\core\services\rdv\ServiceRDVInvalidDataException;
+use rdv\application\actions\AbstractAction;
+use rdv\core\services\rdv\ServiceRDVInvalidDataException;
 use function PHPUnit\Framework\isFalse;
 
 class InputRdvDto extends DTO
@@ -48,12 +48,12 @@ class InputRdvDto extends DTO
      * @param string $patientId
      * @param \DateTimeImmutable $dateHeure
      */
-    public function __construct(string $praticienId, string $patientId, string $specialite, string $dateHeure)
+    public function __construct(string $praticienId, string $patientId, string $specialite, string $DateHeure)
     {
         $this->praticienId = $praticienId;
         $this->patientId = $patientId;
         $this->specialite = $specialite;
-        $this->dateHeure = \DateTimeImmutable::createFromFormat('Y-m-d H:i', $dateHeure );
+        $this->dateHeure = \DateTimeImmutable::createFromFormat('Y-m-d H:i', $DateHeure );
         if($this->dateHeure == false){
             throw new ServiceRDVInvalidDataException('format de date invalide');
         }

@@ -1,17 +1,17 @@
 <?php
 
-namespace toubeelib\application\actions;
+namespace rdv\application\actions;
 
 
 use DI\Container;
 use Monolog\Logger;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use toubeelib\core\services\ServiceAuthInterface;
-use toubeelib\core\services\praticien\ServicePraticienInterface;
-use toubeelib\core\services\rdv\ServiceRDVInterface;
-use toubeelib\providers\auth\AuthnProviderInterface;
-use toubeelib\core\services\patient\ServicePatientInterface;
+use rdv\core\services\ServiceAuthInterface;
+use rdv\core\services\praticien\ServicePraticienInterface;
+use rdv\core\services\rdv\ServiceRDVInterface;
+use rdv\providers\auth\AuthnProviderInterface;
+use rdv\core\services\patient\ServicePatientInterface;
 
 abstract class AbstractAction
 {

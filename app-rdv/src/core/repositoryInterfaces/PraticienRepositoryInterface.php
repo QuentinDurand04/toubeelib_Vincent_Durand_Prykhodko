@@ -1,10 +1,10 @@
 <?php
 
-namespace toubeelib\core\repositoryInterfaces;
+namespace rdv\core\repositoryInterfaces;
 
 use DI\Container;
-use toubeelib\core\domain\entities\praticien\Praticien;
-use toubeelib\core\domain\entities\praticien\Specialite;
+use rdv\core\domain\entities\praticien\Praticien;
+use rdv\core\domain\entities\praticien\Specialite;
 
 interface PraticienRepositoryInterface
 {

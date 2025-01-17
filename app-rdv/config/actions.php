@@ -1,17 +1,17 @@
 <?php
 
-use toubeelib\application\actions\DeleteRdvId;
-use toubeelib\application\actions\GetPatient;
-use toubeelib\application\actions\GetPraticien;
-use toubeelib\application\actions\GetRdvId;
-use toubeelib\application\actions\PatchRdv;
-use toubeelib\application\actions\PostCreateRdv;
-use toubeelib\application\actions\PostSignIn;
-use toubeelib\application\actions\SearchPraticien;
-use toubeelib\core\services\praticien\ServicePraticienInterface;
-use toubeelib\application\actions\GetDisposPraticien;
-use toubeelib\application\actions\GetDisposPraticienDate;
-use toubeelib\core\services\rdv\ServiceRDVInterface;
+use rdv\application\actions\DeleteRdvId;
+use rdv\application\actions\GetPatient;
+use rdv\application\actions\GetPraticien;
+use rdv\application\actions\GetRdvId;
+use rdv\application\actions\PatchRdv;
+use rdv\application\actions\PostCreateRdv;
+use rdv\application\actions\PostSignIn;
+use rdv\application\actions\SearchPraticien;
+use rdv\core\services\praticien\ServicePraticienInterface;
+use rdv\application\actions\GetDisposPraticien;
+use rdv\application\actions\GetDisposPraticienDate;
+use rdv\core\services\rdv\ServiceRDVInterface;
 
 
 return [

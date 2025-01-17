@@ -1,14 +1,14 @@
 <?php
 
-namespace toubeelib\infrastructure\repositories;
+namespace rdv\infrastructure\repositories;
 
 use DI\Container;
-use toubeelib\core\domain\entities\User;
-use toubeelib\core\domain\entities\patient\Patient;
-use toubeelib\core\repositoryInterfaces\PatientRepositoryInterface;
+use rdv\core\domain\entities\User;
+use rdv\core\domain\entities\patient\Patient;
+use rdv\core\repositoryInterfaces\PatientRepositoryInterface;
 use \PDO;
 use \PDOException;
-use toubeelib\core\repositoryInterfaces\RepositoryInternalException;
+use rdv\core\repositoryInterfaces\RepositoryInternalException;
 
 class PgPatientRepository implements PatientRepositoryInterface{
     protected PDO $pdo;

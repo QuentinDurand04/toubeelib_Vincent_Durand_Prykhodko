@@ -1,12 +1,12 @@
 <?php
 
-namespace toubeelib\application\actions;
+namespace rdv\application\actions;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Respect\Validation\Exceptions\NestedValidationException;
 use Slim\Exception\HttpBadRequestException;
-use toubeelib\application\renderer\JsonRenderer;
+use rdv\application\renderer\JsonRenderer;
 
 class GetAllRdvs extends AbstractAction
 {

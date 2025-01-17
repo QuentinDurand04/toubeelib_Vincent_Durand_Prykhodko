@@ -1,8 +1,8 @@
 <?php
 
-namespace toubeelib\core\dto;
+namespace rdv\core\dto;
 
-use toubeelib\core\dto\DTO;
+use rdv\core\dto\DTO;
 
 class SpecialiteDTO extends DTO
 {

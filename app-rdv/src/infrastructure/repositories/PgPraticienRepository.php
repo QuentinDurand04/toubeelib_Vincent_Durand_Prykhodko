@@ -1,15 +1,15 @@
 <?php
-namespace toubeelib\infrastructure\repositories;
+namespace rdv\infrastructure\repositories;
 
 use DI\Container;
 use Monolog\Logger;
-use toubeelib\core\dto\PraticienDTO;
-use toubeelib\core\repositoryInterfaces\RepositoryInternalException;
-use toubeelib\core\domain\entities\praticien\Praticien;
-use toubeelib\core\domain\entities\praticien\Specialite;
-use toubeelib\core\repositoryInterfaces\PraticienRepositoryInterface;
+use rdv\core\dto\PraticienDTO;
+use rdv\core\repositoryInterfaces\RepositoryInternalException;
+use rdv\core\domain\entities\praticien\Praticien;
+use rdv\core\domain\entities\praticien\Specialite;
+use rdv\core\repositoryInterfaces\PraticienRepositoryInterface;
 use PDO;
-use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use rdv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 
 class PgPraticienRepository implements PraticienRepositoryInterface{
 

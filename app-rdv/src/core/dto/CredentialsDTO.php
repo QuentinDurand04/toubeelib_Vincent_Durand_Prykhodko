@@ -1,5 +1,5 @@
 <?php
-namespace toubeelib\core\dto;
+namespace rdv\core\dto;
 
 class CredentialsDTO extends DTO{
 

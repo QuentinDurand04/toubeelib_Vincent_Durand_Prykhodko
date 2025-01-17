@@ -1,9 +1,9 @@
 <?php
 
-namespace toubeelib\core\services;
+namespace rdv\core\services;
 
-use toubeelib\core\dto\AuthDTO;
-use toubeelib\core\dto\CredentialsDTO;
+use rdv\core\dto\AuthDTO;
+use rdv\core\dto\CredentialsDTO;
 
 interface ServiceAuthInterface {
 	public function createUser(CredentialsDTO $credentials, int $role): string;

@@ -1,8 +1,8 @@
 <?php
-namespace toubeelib\core\services;
+namespace rdv\core\services;
 use Psr\Container\ContainerInterface;
-use toubeelib\core\repositoryInterfaces\RdvRepositoryInterface;
-use toubeelib\core\services\rdv\AuthorizationRendezVousServiceInterface;
+use rdv\core\repositoryInterfaces\RdvRepositoryInterface;
+use rdv\core\services\rdv\AuthorizationRendezVousServiceInterface;
 
 class AuthorizationPatientService implements AuthorizationPatientServiceInterface{
     public function __construct(ContainerInterface $co)
