@@ -2,26 +2,12 @@
 
 use Psr\Container\ContainerInterface;
 use rdv\core\repositoryInterfaces\AuthRepositoryInterface;
-use rdv\core\repositoryInterfaces\PatientRepositoryInterface;
-use rdv\core\repositoryInterfaces\PraticienRepositoryInterface;
 use rdv\core\repositoryInterfaces\RdvRepositoryInterface;
-use rdv\core\services\AuthorizationPatientService;
-use rdv\core\services\AuthorizationPatientServiceInterface;
-use rdv\core\services\ServiceAuth;
-use rdv\core\services\ServiceAuthInterface;
-use rdv\core\services\patient\ServicePatient;
-use rdv\core\services\patient\ServicePatientInterface;
-use rdv\core\services\praticien\AuthorizationPraticienService;
-use rdv\core\services\praticien\AuthorizationPraticienServiceInterface;
-use rdv\core\services\praticien\ServicePraticien;
-use rdv\core\services\praticien\ServicePraticienInterface;
 use rdv\core\services\rdv\AuthorizationRendezVousService;
 use rdv\core\services\rdv\AuthorizationRendezVousServiceInterface;
 use rdv\core\services\rdv\ServiceRDV;
 use rdv\core\services\rdv\ServiceRDVInterface;
 use rdv\infrastructure\repositories\PgAuthRepository;
-use rdv\infrastructure\repositories\PgPatientRepository;
-use rdv\infrastructure\repositories\PgPraticienRepository;
 use rdv\infrastructure\repositories\PgRdvRepository;
 use rdv\middlewares\AuthnMiddleware;
 use rdv\middlewares\AuthzPatient;
@@ -39,19 +25,12 @@ use Monolog\Formatter\LineFormatter;
 return [
 
     //Repository interface
-    PraticienRepositoryInterface::class => DI\autowire(PgPraticienRepository::class),
     RdvRepositoryInterface::class => DI\autowire(PgRdvRepository::class),
     AuthRepositoryInterface::class=> DI\autowire(PgAuthRepository::class),
-    PatientRepositoryInterface::class => DI\autowire(PgPatientRepository::class),
 
     //Services
-    ServicePraticienInterface::class => DI\autowire(ServicePraticien::class),
     ServiceRDVInterface::class => DI\autowire(ServiceRDV::class),
-    ServiceAuthInterface::class => DI\autowire(ServiceAuth::class),
-    ServicePatientInterface::class => Di\autowire(ServicePatient::class),
     AuthorizationRendezVousServiceInterface::class => DI\autowire(AuthorizationRendezVousService::class),
-    AuthorizationPatientServiceInterface::class => DI\autowire(AuthorizationPatientService::class),
-    AuthorizationPraticienServiceInterface::class => DI\autowire(AuthorizationPraticienService::class),
 
 
     AuthzRDV::class => DI\autowire(),
