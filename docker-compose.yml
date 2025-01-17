@@ -102,28 +102,7 @@ services:
     networks:
       - toubeelib.net
     volumes:
-      - ./app/sql:/var/sql'
-
-  
-  praticiens.auth.db:
-    image: 'postgres:latest'
-    env_file: ./praticiensauthdb.env
-    ports:
-      - '5435:5432'
-    networks:
-      - toubeelib.net
-    volumes:
-      - ./app-praticiens/sql:/var/sql'
-
-  rdvs.auth.db:
-    image: 'postgres:latest'
-    env_file: ./rdvsauthdb.env
-    ports:
-      - '5436:5432'
-    networks:
-      - toubeelib.net
-    volumes:
-      - ./app-rdv/sql:/var/sql'    
+      - ./app/sql:/var/sql' 
 
   praticiens.db:
     image: 'postgres:latest'
