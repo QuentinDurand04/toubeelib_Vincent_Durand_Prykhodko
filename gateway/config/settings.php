@@ -8,6 +8,7 @@ return  [
     'auth.db.config' => __DIR__ . '/pdoConfigAuth.ini',
     'toubeelib.praticien.api' => 'http://api.toubeelib/',
     'praticiens.api' => 'http://api.praticiens/',
+    'rdvs.api' => 'http://api.rdvs/',
 
 
 

@@ -31,7 +31,7 @@ class PraticienActions extends AbstractAction{
             }
             return $response;
         }catch(ClientException $e){
-            throw new HttpNotFoundException($rq, "Id du praticien invalide");
+            throw ($e);
         }
     }
 }
