@@ -1,13 +1,13 @@
 <?php
 
-namespace toubeelib\application\actions;
+namespace gateway\application\actions;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Respect\Validation\Exceptions\NestedValidationException;
 use Slim\Exception\HttpBadRequestException;
-use toubeelib\application\renderer\JsonRenderer;
-use toubeelib\application\actions\AbstractAction;
+use gateway\application\renderer\JsonRenderer;
+use gateway\application\actions\AbstractAction;
 
 class GetAllRdvs extends AbstractAction
 {
@@ -21,8 +21,17 @@ class GetAllRdvs extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-            $response = $this->guzzle->get("/rdvs");
+        try{
+            if(!isset($args['id'])){
+                $response = $this->guzzle->get("/rdvs");
+                //sinon si la requete contient un id et /rdvs
+            }elseif($rq->getUri()->getPath() == "/rdvs/".$args['id']){
+                $response = $this->guzzle->get("/rdvs/".$args['id']);
+            }
             return $response;
+        }catch(ClientException $e){
+            throw ($e);
+        }
     }
 
 

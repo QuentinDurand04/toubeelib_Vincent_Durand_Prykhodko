@@ -1,13 +1,13 @@
 <?php
 
-namespace toubeelib\application\actions;
+namespace gateway\application\actions;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator;
 use Slim\Exception\HttpBadRequestException;
-use toubeelib\application\renderer\JsonRenderer;
+use gateway\application\renderer\JsonRenderer;
 
 class GetPraticienRdvs extends AbstractAction
 {

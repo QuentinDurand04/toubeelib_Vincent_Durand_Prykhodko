@@ -18,6 +18,8 @@ return function (\Slim\App $app): \Slim\App {
     $app->get("/praticiens/{id}/rdvs[/]", PraticienActions::class)->setName('getRdvsPraticien');
 
     $app->get("/rdvs[/]", GetAllRdvs::class)->setName('getAllRdvs');
+    
+    $app->get("/rdvs/{id}[/]", GetAllRdvs::class)->setName('getRdvsId');
 
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {
