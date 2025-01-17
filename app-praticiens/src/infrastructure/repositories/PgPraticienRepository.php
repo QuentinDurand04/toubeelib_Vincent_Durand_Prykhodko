@@ -1,15 +1,15 @@
 <?php
-namespace toubeelib\infrastructure\repositories;
+namespace praticiens\infrastructure\repositories;
 
 use DI\Container;
 use Monolog\Logger;
-use toubeelib\core\dto\PraticienDTO;
-use toubeelib\core\repositoryInterfaces\RepositoryInternalException;
-use toubeelib\core\domain\entities\praticien\Praticien;
-use toubeelib\core\domain\entities\praticien\Specialite;
-use toubeelib\core\repositoryInterfaces\PraticienRepositoryInterface;
+use praticiens\core\dto\PraticienDTO;
+use praticiens\core\repositoryInterfaces\RepositoryInternalException;
+use praticiens\core\domain\entities\praticien\Praticien;
+use praticiens\core\domain\entities\praticien\Specialite;
+use praticiens\core\repositoryInterfaces\PraticienRepositoryInterface;
 use PDO;
-use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use praticiens\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 
 class PgPraticienRepository implements PraticienRepositoryInterface{
 
@@ -42,6 +42,7 @@ class PgPraticienRepository implements PraticienRepositoryInterface{
 
     public function save(Praticien $praticien): string
     {
+        return '';
     }
 
     public function getPraticienById(string $id): Praticien

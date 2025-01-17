@@ -1,9 +1,9 @@
 <?php
 
-namespace toubeelib\core\services;
+namespace praticiens\core\services;
 
-use toubeelib\core\dto\AuthDTO;
-use toubeelib\core\dto\CredentialsDTO;
+use praticiens\core\dto\AuthDTO;
+use praticiens\core\dto\CredentialsDTO;
 
 interface ServiceAuthInterface {
 	public function createUser(CredentialsDTO $credentials, int $role): string;
