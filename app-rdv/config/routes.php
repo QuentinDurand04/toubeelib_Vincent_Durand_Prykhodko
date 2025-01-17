@@ -33,29 +33,6 @@ return function (\Slim\App $app): \Slim\App {
 //        ->add(AuthzRDV::class)
 //        ->add(AuthnMiddleware::class);
 
-    //PATIENTS
-    $app->get('/patients/{id}/rdvs[/]', GetRdvByPatient::class)
-        ->setName('rdvPatient');
-//        ->add(AuthzPatient::class)
-//        ->add(AuthnMiddleware::class);
-
-    $app->get("/patients/{id}[/]", GetPatient::class)
-        ->setName('getPatient');
-//        ->add(AuthzPatient::class)
-//        ->add(AuthnMiddleware::class);
-
-    //PRATICIENS
-    $app->get('/praticiens[/]', \rdv\application\actions\GetAllPraticien::class)
-        ->setName('getAllPraticien');
-
-    $app->get('/praticiens/{id}/rdvs[/]', \rdv\application\actions\GetPraticienPlanning::class)
-        ->setName('planningPraticien');
-//        ->add(AuthzPraticiens::class)
-//        ->add(AuthnMiddleware::class);
-
-    $app->get("/praticiens/{id}[/]", GetPraticien::class )->setName('getPraticien');
-//        ->add(AuthnMiddleware::class);
-
     $app->post('/signin[/]', PostSignIn::class)->setName('signIn');
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {

@@ -5,25 +5,25 @@ use Slim\Exception\HttpNotFoundException;
 
 
 
-use toubeelib\application\actions\GetPatient;
-use toubeelib\application\actions\GetPraticien;
-use toubeelib\application\actions\GetRdvByPatient;
+use praticiens\application\actions\GetPatient;
+use praticiens\application\actions\GetPraticien;
+use praticiens\application\actions\GetRdvByPatient;
 
-use toubeelib\application\actions\PostSignIn;
-use toubeelib\middlewares\AuthnMiddleware;
-use toubeelib\middlewares\AuthzPatient;
-use toubeelib\middlewares\AuthzPraticiens;
-use toubeelib\middlewares\AuthzRDV;
+use praticiens\application\actions\PostSignIn;
+use praticiens\middlewares\AuthnMiddleware;
+use praticiens\middlewares\AuthzPatient;
+use praticiens\middlewares\AuthzPraticiens;
+use praticiens\middlewares\AuthzRDV;
 
 return function (\Slim\App $app): \Slim\App {
 
-    $app->get('/', \toubeelib\application\actions\HomeAction::class);
+    $app->get('/', \praticiens\application\actions\HomeAction::class);
 
     //PRATICIENS
-    $app->get('/praticiens[/]', \toubeelib\application\actions\GetAllPraticien::class)
+    $app->get('/praticiens[/]', \praticiens\application\actions\GetAllPraticien::class)
         ->setName('getAllPraticien');
 
-    $app->get('/praticiens/{id}/rdvs[/]', \toubeelib\application\actions\GetPraticienPlanning::class)
+    $app->get('/praticiens/{id}/rdvs[/]', \praticiens\application\actions\GetPraticienPlanning::class)
         ->setName('planningPraticien');
 //        ->add(AuthzPraticiens::class)
 //        ->add(AuthnMiddleware::class);

@@ -1,4 +1,4 @@
 <?php
-namespace toubeelib\core\services;
+namespace praticiens\core\services;
 
 class ServiceOperationInvalideException extends \Exception{}

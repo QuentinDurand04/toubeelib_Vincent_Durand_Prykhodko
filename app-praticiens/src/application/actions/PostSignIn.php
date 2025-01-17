@@ -1,6 +1,6 @@
 <?php
 
-namespace toubeelib\application\actions;
+namespace praticiens\application\actions;
 
 use DI\Container;
 use Error;
@@ -10,10 +10,10 @@ use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpInternalServerErrorException;
-use toubeelib\application\renderer\JsonRenderer;
-use toubeelib\core\dto\CredentialsDTO;
-use toubeelib\core\services\rdv\ServiceRDVInvalidDataException;
-use toubeelib\providers\auth\AuthnProviderInterface;
+use praticiens\application\renderer\JsonRenderer;
+use praticiens\core\dto\CredentialsDTO;
+use praticiens\core\services\rdv\ServiceRDVInvalidDataException;
+use praticiens\providers\auth\AuthnProviderInterface;
 
 class PostSignIn extends AbstractAction
 {

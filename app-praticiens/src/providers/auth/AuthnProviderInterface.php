@@ -1,9 +1,9 @@
 <?php
-namespace toubeelib\providers\auth;
+namespace praticiens\providers\auth;
 
-use toubeelib\core\dto\AuthDTO;
+use praticiens\core\dto\AuthDTO;
 
-use toubeelib\core\dto\CredentialsDTO;
+use praticiens\core\dto\CredentialsDTO;
 
 interface AuthnProviderInterface{
 	public function register(CredentialsDTO $credentials):void;

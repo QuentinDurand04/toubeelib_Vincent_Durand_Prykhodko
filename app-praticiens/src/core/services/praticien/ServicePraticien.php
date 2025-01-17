@@ -1,19 +1,19 @@
 <?php
 
-namespace toubeelib\core\services\praticien;
+namespace praticiens\core\services\praticien;
 
 // ! Not use
 use DI\Container;
 use Respect\Validation\Exceptions\NestedValidationException;
-use toubeelib\core\domain\entities\praticien\Praticien;
+use praticiens\core\domain\entities\praticien\Praticien;
 // ! Not use
 
 
-use toubeelib\core\dto\InputPraticienDTO;
-use toubeelib\core\dto\PraticienDTO;
-use toubeelib\core\dto\SpecialiteDTO;
-use toubeelib\core\repositoryInterfaces\PraticienRepositoryInterface;
-use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use praticiens\core\dto\InputPraticienDTO;
+use praticiens\core\dto\PraticienDTO;
+use praticiens\core\dto\SpecialiteDTO;
+use praticiens\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use praticiens\core\repositoryInterfaces\PraticienRepositoryInterface;
 
 class ServicePraticien implements ServicePraticienInterface
 {
