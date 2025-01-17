@@ -1,15 +1,16 @@
 <?php
 
-namespace gateway\application\actions;
+namespace toubeelib\application\actions;
 
-use DI\Container;
-use gateway\application\renderer\JsonRenderer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Respect\Validation\Exceptions\NestedValidationException;
+use Slim\Exception\HttpBadRequestException;
+use toubeelib\application\renderer\JsonRenderer;
+use toubeelib\application\actions\AbstractAction;
 
-
-class GetAllPraticienAction extends AbstractAction{
-
+class GetAllRdvs extends AbstractAction
+{
     private \GuzzleHttp\Client $guzzle;
 
     public function __construct(Container $container)
@@ -20,7 +21,9 @@ class GetAllPraticienAction extends AbstractAction{
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $response = $this->guzzle->get("/praticiens");
-        return $response;
+            $response = $this->guzzle->get("/rdvs");
+            return $response;
     }
+
+
 }
