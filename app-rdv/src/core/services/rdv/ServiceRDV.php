@@ -161,6 +161,18 @@ class ServiceRDV implements ServiceRDVInterface {
         return $results; 
     }
 
+    public function getRdvsByPraticien(string $idPraticien): array
+    {
+        try {
+            $listeRDV = $this->rdvRepository->getRdvByPraticien($idPraticien);
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new ServiceRessourceNotFoundException("Praticien $idPraticien n'existe pas");
+        }
+        return array_map(function(RendezVous $rdv) {
+            return $rdv->toDTO($this->servicePraticien->getPraticienById($rdv->getPraticienId()));
+        }, $listeRDV);
+    }
+
     public function getRdvByPatient(string $id) : array {
         try{
         $listeRDV = $this->rdvRepository->getRdvByPatient($id);
