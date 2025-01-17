@@ -1,5 +1,5 @@
 <?php
-namespace toubeelib\core\repositoryInterfaces;
+namespace rdv\core\repositoryInterfaces;
 
 use Exception;
 

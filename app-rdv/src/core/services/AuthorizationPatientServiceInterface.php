@@ -1,5 +1,5 @@
 <?php
-namespace toubeelib\core\services;
+namespace rdv\core\services;
 
 interface AuthorizationPatientServiceInterface
 {

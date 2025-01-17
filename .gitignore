@@ -17,7 +17,7 @@ vendor
 app/vendor/*
 app/var/logs
 !/app/logs/README.md
-/app/vendor
+/app/vendor/*
 # Cache
 /var/cache/*
 .phpunit.result.cache

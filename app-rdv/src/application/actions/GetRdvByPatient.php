@@ -1,17 +1,17 @@
 <?php
 
-namespace toubeelib\application\actions;
+namespace rdv\application\actions;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Exception\HttpNotFoundException;
 use Slim\Routing\RouteContext;
-use toubeelib\application\actions\AbstractAction;
-use toubeelib\application\renderer\JsonRenderer;
-use toubeelib\core\dto\RdvDTO;
-use toubeelib\core\services\ServiceRessourceNotFoundException;
-use toubeelib\core\services\rdv\ServiceRDVInvalidDataException;
+use rdv\application\actions\AbstractAction;
+use rdv\application\renderer\JsonRenderer;
+use rdv\core\dto\RdvDTO;
+use rdv\core\services\ServiceRessourceNotFoundException;
+use rdv\core\services\rdv\ServiceRDVInvalidDataException;
 
 class GetRdvByPatient extends AbstractAction
 {

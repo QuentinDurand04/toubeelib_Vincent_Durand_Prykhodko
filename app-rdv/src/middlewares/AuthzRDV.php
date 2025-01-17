@@ -1,5 +1,5 @@
 <?php
-namespace toubeelib\middlewares;
+namespace rdv\middlewares;
 
 use DI\Container;
 use Monolog\Logger;
@@ -10,9 +10,9 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Exception\HttpNotFoundException;
 use Slim\Exception\HttpUnauthorizedException;
 use Slim\Routing\RouteContext;
-use toubeelib\core\services\ServiceRessourceNotFoundException;
-use toubeelib\providers\auth\AuthInvalidException;
-use toubeelib\core\services\rdv\AuthorizationRendezVousServiceInterface;
+use rdv\core\services\ServiceRessourceNotFoundException;
+use rdv\providers\auth\AuthInvalidException;
+use rdv\core\services\rdv\AuthorizationRendezVousServiceInterface;
 
 class AuthzRDV implements MiddlewareInterface{
 

@@ -5,30 +5,30 @@ use Slim\Exception\HttpNotFoundException;
 
 
 
-use toubeelib\application\actions\GetPatient;
-use toubeelib\application\actions\GetPraticien;
-use toubeelib\application\actions\GetRdvByPatient;
+use rdv\application\actions\GetPatient;
+use rdv\application\actions\GetPraticien;
+use rdv\application\actions\GetRdvByPatient;
 
-use toubeelib\application\actions\PostSignIn;
-use toubeelib\middlewares\AuthnMiddleware;
-use toubeelib\middlewares\AuthzPatient;
-use toubeelib\middlewares\AuthzPraticiens;
-use toubeelib\middlewares\AuthzRDV;
+use rdv\application\actions\PostSignIn;
+use rdv\middlewares\AuthnMiddleware;
+use rdv\middlewares\AuthzPatient;
+use rdv\middlewares\AuthzPraticiens;
+use rdv\middlewares\AuthzRDV;
 
 return function (\Slim\App $app): \Slim\App {
 
-    $app->get('/', \toubeelib\application\actions\HomeAction::class);
+    $app->get('/', \rdv\application\actions\HomeAction::class);
 
     //RENDEZVOUS
-    $app->get('/rdvs[/]', \toubeelib\application\actions\GetAllRdvs::class)
+    $app->get('/rdvs[/]', \rdv\application\actions\GetAllRdvs::class)
         ->setName('getAllRdvs');
 
-    $app->post('/rdvs[/]', \toubeelib\application\actions\PostCreateRdv::class)
+    $app->post('/rdvs[/]', \rdv\application\actions\PostCreateRdv::class)
         ->setName('createRdv');
 //        ->add(AuthnMiddleware::class);
     ;
 
-    $app->get('/rdvs/{id}[/]', \toubeelib\application\actions\GetRdvId::class)
+    $app->get('/rdvs/{id}[/]', \rdv\application\actions\GetRdvId::class)
         ->setName('getRdv');
 //        ->add(AuthzRDV::class)
 //        ->add(AuthnMiddleware::class);
@@ -45,10 +45,10 @@ return function (\Slim\App $app): \Slim\App {
 //        ->add(AuthnMiddleware::class);
 
     //PRATICIENS
-    $app->get('/praticiens[/]', \toubeelib\application\actions\GetAllPraticien::class)
+    $app->get('/praticiens[/]', \rdv\application\actions\GetAllPraticien::class)
         ->setName('getAllPraticien');
 
-    $app->get('/praticiens/{id}/rdvs[/]', \toubeelib\application\actions\GetPraticienPlanning::class)
+    $app->get('/praticiens/{id}/rdvs[/]', \rdv\application\actions\GetPraticienPlanning::class)
         ->setName('planningPraticien');
 //        ->add(AuthzPraticiens::class)
 //        ->add(AuthnMiddleware::class);

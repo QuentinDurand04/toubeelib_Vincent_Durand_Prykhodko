@@ -1,36 +1,36 @@
 <?php
 
 use Psr\Container\ContainerInterface;
-use toubeelib\core\repositoryInterfaces\AuthRepositoryInterface;
-use toubeelib\core\repositoryInterfaces\PatientRepositoryInterface;
-use toubeelib\core\repositoryInterfaces\PraticienRepositoryInterface;
-use toubeelib\core\repositoryInterfaces\RdvRepositoryInterface;
-use toubeelib\core\services\AuthorizationPatientService;
-use toubeelib\core\services\AuthorizationPatientServiceInterface;
-use toubeelib\core\services\ServiceAuth;
-use toubeelib\core\services\ServiceAuthInterface;
-use toubeelib\core\services\patient\ServicePatient;
-use toubeelib\core\services\patient\ServicePatientInterface;
-use toubeelib\core\services\praticien\AuthorizationPraticienService;
-use toubeelib\core\services\praticien\AuthorizationPraticienServiceInterface;
-use toubeelib\core\services\praticien\ServicePraticien;
-use toubeelib\core\services\praticien\ServicePraticienInterface;
-use toubeelib\core\services\rdv\AuthorizationRendezVousService;
-use toubeelib\core\services\rdv\AuthorizationRendezVousServiceInterface;
-use toubeelib\core\services\rdv\ServiceRDV;
-use toubeelib\core\services\rdv\ServiceRDVInterface;
-use toubeelib\infrastructure\repositories\PgAuthRepository;
-use toubeelib\infrastructure\repositories\PgPatientRepository;
-use toubeelib\infrastructure\repositories\PgPraticienRepository;
-use toubeelib\infrastructure\repositories\PgRdvRepository;
-use toubeelib\middlewares\AuthnMiddleware;
-use toubeelib\middlewares\AuthzPatient;
-use toubeelib\middlewares\AuthzPraticiens;
-use toubeelib\middlewares\AuthzRDV;
-use toubeelib\middlewares\CorsMiddleware;
-use toubeelib\providers\auth\AuthnProviderInterface;
-use toubeelib\providers\auth\JWTAuthnProvider;
-use toubeelib\providers\auth\JWTManager;
+use rdv\core\repositoryInterfaces\AuthRepositoryInterface;
+use rdv\core\repositoryInterfaces\PatientRepositoryInterface;
+use rdv\core\repositoryInterfaces\PraticienRepositoryInterface;
+use rdv\core\repositoryInterfaces\RdvRepositoryInterface;
+use rdv\core\services\AuthorizationPatientService;
+use rdv\core\services\AuthorizationPatientServiceInterface;
+use rdv\core\services\ServiceAuth;
+use rdv\core\services\ServiceAuthInterface;
+use rdv\core\services\patient\ServicePatient;
+use rdv\core\services\patient\ServicePatientInterface;
+use rdv\core\services\praticien\AuthorizationPraticienService;
+use rdv\core\services\praticien\AuthorizationPraticienServiceInterface;
+use rdv\core\services\praticien\ServicePraticien;
+use rdv\core\services\praticien\ServicePraticienInterface;
+use rdv\core\services\rdv\AuthorizationRendezVousService;
+use rdv\core\services\rdv\AuthorizationRendezVousServiceInterface;
+use rdv\core\services\rdv\ServiceRDV;
+use rdv\core\services\rdv\ServiceRDVInterface;
+use rdv\infrastructure\repositories\PgAuthRepository;
+use rdv\infrastructure\repositories\PgPatientRepository;
+use rdv\infrastructure\repositories\PgPraticienRepository;
+use rdv\infrastructure\repositories\PgRdvRepository;
+use rdv\middlewares\AuthnMiddleware;
+use rdv\middlewares\AuthzPatient;
+use rdv\middlewares\AuthzPraticiens;
+use rdv\middlewares\AuthzRDV;
+use rdv\middlewares\CorsMiddleware;
+use rdv\providers\auth\AuthnProviderInterface;
+use rdv\providers\auth\JWTAuthnProvider;
+use rdv\providers\auth\JWTManager;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Formatter\LineFormatter;
@@ -83,7 +83,7 @@ return [
         return new LineFormatter($output, $dateFormat);
     },
     
-    Logger::class => DI\create(Logger::class)->constructor('Toubeelib_logger', [DI\get(StreamHandler::class)]),
+    Logger::class => DI\create(Logger::class)->constructor('rdv_logger', [DI\get(StreamHandler::class)]),
 
 
     //midleware 
@@ -92,4 +92,4 @@ return [
 
 
 ];
-// $co = new PDO('pgsql:host=toubeelib.db;port=5432;dbname=toubeelib;user=user;password=toto');
+// $co = new PDO('pgsql:host=rdv.db;port=5432;dbname=rdv;user=user;password=toto');

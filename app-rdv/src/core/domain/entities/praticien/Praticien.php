@@ -1,9 +1,9 @@
 <?php
 
-namespace toubeelib\core\domain\entities\praticien;
+namespace rdv\core\domain\entities\praticien;
 
-use toubeelib\core\domain\entities\Entity;
-use toubeelib\core\dto\PraticienDTO;
+use rdv\core\domain\entities\Entity;
+use rdv\core\dto\PraticienDTO;
 
 class Praticien extends Entity
 {

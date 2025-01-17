@@ -1,6 +1,6 @@
 <?php
 
-namespace toubeelib\core\services\rdv;
+namespace rdv\core\services\rdv;
 
 use DI\Container;
 use DateInterval;
@@ -9,15 +9,15 @@ use Error;
 use Exception;
 use Faker\Core\Uuid;
 use Ramsey\Uuid\Uuid as RamseyUuid;
-use toubeelib\core\domain\entities\rdv\RendezVous;
-use toubeelib\core\dto\InputRdvDto;
-use toubeelib\core\dto\RdvDTO;
-use toubeelib\core\repositoryInterfaces\RdvRepositoryInterface;
-use toubeelib\core\services\ServiceRessourceNotFoundException;
-use toubeelib\core\services\ServiceOperationInvalideException;
-use toubeelib\core\services\praticien\ServicePraticien;
-use toubeelib\core\services\praticien\ServicePraticienInterface;
-use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use rdv\core\domain\entities\rdv\RendezVous;
+use rdv\core\dto\InputRdvDto;
+use rdv\core\dto\RdvDTO;
+use rdv\core\repositoryInterfaces\RdvRepositoryInterface;
+use rdv\core\services\ServiceRessourceNotFoundException;
+use rdv\core\services\ServiceOperationInvalideException;
+use rdv\core\services\praticien\ServicePraticien;
+use rdv\core\services\praticien\ServicePraticienInterface;
+use rdv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 
 
 class ServiceRDV implements ServiceRDVInterface {
@@ -159,6 +159,18 @@ class ServiceRDV implements ServiceRDVInterface {
         }
         
         return $results; 
+    }
+
+    public function getRdvsByPraticien(string $idPraticien): array
+    {
+        try {
+            $listeRDV = $this->rdvRepository->getRdvByPraticien($idPraticien);
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new ServiceRessourceNotFoundException("Praticien $idPraticien n'existe pas");
+        }
+        return array_map(function(RendezVous $rdv) {
+            return $rdv->toDTO($this->servicePraticien->getPraticienById($rdv->getPraticienId()));
+        }, $listeRDV);
     }
 
     public function getRdvByPatient(string $id) : array {
