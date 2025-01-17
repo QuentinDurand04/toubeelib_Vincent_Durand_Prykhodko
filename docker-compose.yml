@@ -73,7 +73,7 @@ services:
     ports:
       - '6060:80'
     volumes:
-      - ./app-rdvs:/var/php
+      - ./app-rdv:/var/php
       - ./sql:/var/sql
     working_dir: /var/php
     networks:
@@ -123,7 +123,7 @@ services:
     networks:
       - toubeelib.net
     volumes:
-      - ./app-rdvs/sql:/var/sql'    
+      - ./app-rdv/sql:/var/sql'    
 
   praticiens.db:
     image: 'postgres:latest'
@@ -144,7 +144,7 @@ services:
     networks:
       - toubeelib.net
     volumes:
-      - ./app-rdvs/sql:/var/sql'   
+      - ./app-rdv/sql:/var/sql'   
   #
   # service administration des bases sql
   #
