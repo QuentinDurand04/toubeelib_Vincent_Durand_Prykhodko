@@ -11,12 +11,6 @@ use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Routing\RouteContext;
 use praticiens\application\renderer\JsonRenderer;
-use praticiens\core\dto\InputRdvDto;
-use praticiens\core\services\praticien\ServicePraticien;
-use praticiens\core\services\rdv\ServiceRDV;
-use praticiens\core\services\rdv\ServiceRDVInvalidDataException;
-use praticiens\infrastructure\repositories\ArrayPraticienRepository;
-use praticiens\infrastructure\repositories\ArrayRdvRepository;
 
 class PostCreateRdv extends AbstractAction
 {

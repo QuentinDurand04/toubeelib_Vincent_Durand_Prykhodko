@@ -2,6 +2,8 @@
 
 namespace gateway\application\actions;
 
+use DI\Container;
+use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Respect\Validation\Exceptions\NestedValidationException;

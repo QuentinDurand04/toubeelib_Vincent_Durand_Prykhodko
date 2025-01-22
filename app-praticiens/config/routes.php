@@ -3,17 +3,8 @@ declare(strict_types=1);
 
 use Slim\Exception\HttpNotFoundException;
 
-
-
-use praticiens\application\actions\GetPatient;
 use praticiens\application\actions\GetPraticien;
-use praticiens\application\actions\GetRdvByPatient;
-
 use praticiens\application\actions\PostSignIn;
-use praticiens\middlewares\AuthnMiddleware;
-use praticiens\middlewares\AuthzPatient;
-use praticiens\middlewares\AuthzPraticiens;
-use praticiens\middlewares\AuthzRDV;
 
 return function (\Slim\App $app): \Slim\App {
 

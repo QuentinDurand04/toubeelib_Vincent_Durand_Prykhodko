@@ -22,12 +22,12 @@ class PraticienActions extends AbstractAction{
     {
         try{
             if(!isset($args['id'])){
-                $response = $this->guzzle->get("/praticiens");
+                $response = $this->guzzle->get("api.praticiens/praticiens");
                 //sinon si la requete contient un id et /rdvs
-            }elseif($rq->getUri()->getPath() == "/praticiens/".$args['id']."/rdvs"){
-                $response = $this->guzzle->get("/praticiens/".$args['id']."/rdvs");
+            }elseif($rq->getUri()->getPath() == "api.praticiens/praticiens/".$args['id']."/rdvs"){
+                $response = $this->guzzle->get("api.praticiens/praticiens/".$args['id']."/rdvs");
             }else{
-                $response = $this->guzzle->get("/praticiens/".$args['id']);
+                $response = $this->guzzle->get("api.praticiens/praticiens/".$args['id']);
             }
             return $response;
         }catch(ClientException $e){
