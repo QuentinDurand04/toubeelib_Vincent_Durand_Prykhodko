@@ -4,7 +4,7 @@ use Psr\Container\ContainerInterface;
 use toubeelib\core\repositoryInterfaces\RdvRepositoryInterface;
 use toubeelib\core\services\rdv\AuthorizationRendezVousServiceInterface;
 
-class AuthorizationPatientService implements AuthorizationPatientServiceInterface{
+class   AuthorizationPatientService implements AuthorizationPatientServiceInterface{
     public function __construct(ContainerInterface $co)
     {
     }
