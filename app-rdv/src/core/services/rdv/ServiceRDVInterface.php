@@ -1,10 +1,10 @@
 <?php
 
-namespace toubeelib\core\services\rdv;
+namespace rdv\core\services\rdv;
 
 use DI\Container;
-use toubeelib\core\dto\InputRdvDto;
-use toubeelib\core\dto\RdvDTO;
+use rdv\core\dto\InputRdvDto;
+use rdv\core\dto\RdvDTO;
 
 interface ServiceRDVInterface
 {

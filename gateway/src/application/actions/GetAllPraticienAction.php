@@ -20,7 +20,7 @@ class GetAllPraticienAction extends AbstractAction{
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $response = $this->guzzle->get("praticiens.api/praticiens");
+        $response = $this->guzzle->get("/praticiens");
         return $response;
     }
 }

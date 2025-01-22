@@ -1,9 +1,9 @@
 <?php
 
-namespace toubeelib\core\dto;
+namespace rdv\core\dto;
 
-use toubeelib\core\domain\entities\praticien\Praticien;
-use toubeelib\core\dto\DTO;
+use rdv\core\domain\entities\praticien\Praticien;
+use rdv\core\dto\DTO;
 
 class PraticienDTO extends DTO
 {

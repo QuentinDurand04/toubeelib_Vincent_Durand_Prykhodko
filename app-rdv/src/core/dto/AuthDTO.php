@@ -1,8 +1,8 @@
 <?php
 
-namespace toubeelib\core\dto;
+namespace rdv\core\dto;
 
-use toubeelib\core\domain\entities\User;
+use rdv\core\domain\entities\User;
 
 class AuthDTO extends DTO{
     protected string $id;

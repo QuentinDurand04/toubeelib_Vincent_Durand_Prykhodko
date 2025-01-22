@@ -1,11 +1,11 @@
 <?php
 
-namespace toubeelib\core\services\patient;
+namespace rdv\core\services\patient;
 
 use DI\Container;
-use toubeelib\core\dto\InputRdvDto;
-use toubeelib\core\dto\PatientDTO;
-use toubeelib\core\dto\RdvDTO;
+use rdv\core\dto\InputRdvDto;
+use rdv\core\dto\PatientDTO;
+use rdv\core\dto\RdvDTO;
 
 interface ServicePatientInterface
 {

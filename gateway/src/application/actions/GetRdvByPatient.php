@@ -1,17 +1,17 @@
 <?php
 
-namespace rdv\application\actions;
+namespace gateway\application\actions;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Exception\HttpNotFoundException;
 use Slim\Routing\RouteContext;
-use rdv\application\actions\AbstractAction;
-use rdv\application\renderer\JsonRenderer;
-use rdv\core\dto\RdvDTO;
-use rdv\core\services\ServiceRessourceNotFoundException;
-use rdv\core\services\rdv\ServiceRDVInvalidDataException;
+use gateway\application\actions\AbstractAction;
+use gateway\application\renderer\JsonRenderer;
+use gateway\core\dto\RdvDTO;
+use gateway\core\services\ServiceRessourceNotFoundException;
+use gateway\core\services\rdv\ServiceRDVInvalidDataException;
 
 class GetRdvByPatient extends AbstractAction
 {

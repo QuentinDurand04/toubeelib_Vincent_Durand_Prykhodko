@@ -1,8 +1,8 @@
 <?php
 
-namespace toubeelib\core\dto;
+namespace praticiens\core\dto;
 
-use toubeelib\core\dto\DTO;
+use praticiens\core\dto\DTO;
 
 class SpecialiteDTO extends DTO
 {

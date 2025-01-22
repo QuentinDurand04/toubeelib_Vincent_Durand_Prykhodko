@@ -1,5 +1,5 @@
 <?php
-namespace toubeelib\providers\auth;
+namespace praticiens\providers\auth;
 
 
 class AuthInvalidException extends \Exception{

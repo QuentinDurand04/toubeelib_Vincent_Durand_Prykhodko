@@ -1,7 +1,7 @@
 <?php
-namespace toubeelib\core\repositoryInterfaces;
+namespace rdv\core\repositoryInterfaces;
 
-use toubeelib\core\domain\entities\User;
+use rdv\core\domain\entities\User;
 
 interface AuthRepositoryInterface {
     public function getUser(string $id): User;

@@ -2,19 +2,20 @@
 
 namespace gateway\application\actions;
 
-use DI\Container;
-use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Exception\HttpNotFoundException;
+use Respect\Validation\Exceptions\NestedValidationException;
+use Slim\Exception\HttpBadRequestException;
+use gateway\application\renderer\JsonRenderer;
+use gateway\application\actions\AbstractAction;
 
-
-class PraticienActions extends AbstractAction{
-
-    private $guzzle;
+class GetAllRdvs extends AbstractAction
+{
+    private \GuzzleHttp\Client $guzzle;
 
     public function __construct(Container $container)
     {
+        parent::__construct($container);
         $this->guzzle = $container->get('guzzle.client');
     }
 
@@ -22,16 +23,16 @@ class PraticienActions extends AbstractAction{
     {
         try{
             if(!isset($args['id'])){
-                $response = $this->guzzle->get("/praticiens");
+                $response = $this->guzzle->get("/rdvs");
                 //sinon si la requete contient un id et /rdvs
-            }elseif($rq->getUri()->getPath() == "/praticiens/".$args['id']."/rdvs"){
-                $response = $this->guzzle->get("/praticiens/".$args['id']."/rdvs");
-            }else{
-                $response = $this->guzzle->get("/praticiens/".$args['id']);
+            }elseif($rq->getUri()->getPath() == "/rdvs/".$args['id']){
+                $response = $this->guzzle->get("/rdvs/".$args['id']);
             }
             return $response;
         }catch(ClientException $e){
             throw ($e);
         }
     }
+
+
 }

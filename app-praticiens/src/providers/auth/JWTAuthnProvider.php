@@ -1,11 +1,11 @@
 <?php
-namespace toubeelib\providers\auth;
+namespace praticiens\providers\auth;
 
 use DI\Container;
-use toubeelib\core\dto\AuthDTO;
-use toubeelib\core\dto\CredentialsDTO;
-use toubeelib\core\services\ServiceAuthBadPasswordException;
-use toubeelib\core\services\ServiceAuthInterface;
+use praticiens\core\dto\AuthDTO;
+use praticiens\core\dto\CredentialsDTO;
+use praticiens\core\services\ServiceAuthBadPasswordException;
+use praticiens\core\services\ServiceAuthInterface;
 
 class JWTAuthnProvider implements AuthnProviderInterface{
 	protected ServiceAuthInterface $serviceAuth;

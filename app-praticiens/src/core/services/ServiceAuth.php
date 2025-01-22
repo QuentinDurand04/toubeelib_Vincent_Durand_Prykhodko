@@ -1,11 +1,11 @@
 <?php
-namespace toubeelib\core\services;
+namespace praticiens\core\services;
 
 use DI\Container;
-use toubeelib\core\dto\AuthDTO;
-use toubeelib\core\dto\CredentialsDTO;
-use toubeelib\core\repositoryInterfaces\AuthRepositoryInterface;
-use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use praticiens\core\dto\AuthDTO;
+use praticiens\core\dto\CredentialsDTO;
+use praticiens\core\repositoryInterfaces\AuthRepositoryInterface;
+use praticiens\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 
 class ServiceAuth implements ServiceAuthInterface{
 	protected AuthRepositoryInterface $repositoryAuth;

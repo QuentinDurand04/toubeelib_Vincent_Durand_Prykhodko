@@ -1,12 +1,12 @@
 <?php
 
-namespace toubeelib\application\actions;
+namespace praticiens\application\actions;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Respect\Validation\Exceptions\NestedValidationException;
 use Slim\Exception\HttpBadRequestException;
-use toubeelib\application\renderer\JsonRenderer;
+use praticiens\application\renderer\JsonRenderer;
 
 class GetAllPraticien extends AbstractAction
 {

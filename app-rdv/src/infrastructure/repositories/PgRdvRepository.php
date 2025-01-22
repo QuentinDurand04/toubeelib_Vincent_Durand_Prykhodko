@@ -1,13 +1,13 @@
 <?php
-namespace toubeelib\infrastructure\repositories;
+namespace rdv\infrastructure\repositories;
 
 use DI\Container;
 use Monolog\Logger;
 use PDO;
-use toubeelib\core\domain\entities\rdv\RendezVous;
-use toubeelib\core\repositoryInterfaces\RdvRepositoryInterface;
-use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
-use toubeelib\core\repositoryInterfaces\RepositoryInternalException;
+use rdv\core\domain\entities\rdv\RendezVous;
+use rdv\core\repositoryInterfaces\RdvRepositoryInterface;
+use rdv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use rdv\core\repositoryInterfaces\RepositoryInternalException;
 
 class PgRdvRepository implements  RdvRepositoryInterface{
 
