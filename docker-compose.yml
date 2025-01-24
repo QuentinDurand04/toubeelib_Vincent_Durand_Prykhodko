@@ -82,6 +82,26 @@ services:
       - toubeelib.db
     command: php -S 0.0.0.0:80 -t /var/php/public
 
+  
+  api.auth:
+    build:
+      context: build
+      dockerfile: 8.3-cli.Dockerfile
+    env_file: ./toubeelib.env
+    container_name: api_auth
+
+    ports:
+      - '6050:80'
+    volumes:
+      - ./app-auth:/var/php
+      - ./sql:/var/sql
+    working_dir: /var/php
+    networks:
+      - toubeelib.net
+    depends_on:
+      - toubeelib.db
+    command: php -S 0.0.0.0:80 -t /var/php/public
+
 
     # service toubeelib.db : base de données postgresql
   toubeelib.auth.db:
@@ -124,6 +144,17 @@ services:
       - toubeelib.net
     volumes:
       - ./app-rdv/sql:/var/sql'   
+
+  
+  auth.db:
+    image: 'postgres:latest'
+    env_file: ./authdb.env
+    ports:
+      - '5434:5432'
+    networks:
+      - toubeelib.net
+    volumes:
+      - ./app-auth/sql:/var/sql'
   #
   # service administration des bases sql
   #

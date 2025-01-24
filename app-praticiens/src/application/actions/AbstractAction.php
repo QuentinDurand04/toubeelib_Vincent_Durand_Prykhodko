@@ -9,9 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use praticiens\core\services\ServiceAuthInterface;
 use praticiens\core\services\praticien\ServicePraticienInterface;
-use praticiens\core\services\rdv\ServiceRDVInterface;
 use praticiens\providers\auth\AuthnProviderInterface;
-use praticiens\core\services\patient\ServicePatientInterface;
 
 abstract class AbstractAction
 {

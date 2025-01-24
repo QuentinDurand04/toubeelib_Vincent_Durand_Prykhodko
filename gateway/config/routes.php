@@ -5,6 +5,7 @@ use Slim\Exception\HttpNotFoundException;
 use gateway\application\actions\PraticienActions;
 use gateway\application\actions\HomeAction;
 use gateway\application\actions\GetAllRdvs;
+use gateway\application\actions\PostSignIn;
 
 return function (\Slim\App $app): \Slim\App {
 
@@ -20,6 +21,8 @@ return function (\Slim\App $app): \Slim\App {
     $app->get("/rdvs[/]", GetAllRdvs::class)->setName('getAllRdvs');
     
     $app->get("/rdvs/{id}[/]", GetAllRdvs::class)->setName('getRdvsId');
+
+    $app->post('/signin[/]', PostSignIn::class)->setName('signIn');
 
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {

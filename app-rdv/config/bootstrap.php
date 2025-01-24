@@ -1,10 +1,7 @@
 <?php
 
 use DI\ContainerBuilder;
-use Slim\Exception\HttpUnauthorizedException;
 use Slim\Factory\AppFactory;
-use Slim\Middleware\ErrorMiddleware;
-use rdv\middlewares\AuthnMiddleware;
 use rdv\middlewares\CorsMiddleware;
 
 
