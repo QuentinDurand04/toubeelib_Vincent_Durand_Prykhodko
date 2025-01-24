@@ -1,6 +1,6 @@
 <?php
 
-use gateway\application\actions\HomeAction;
+use rdv\application\actions\HomeAction;
 use rdv\application\actions\DeleteRdvId;
 use rdv\application\actions\GetAllRdvs;
 use rdv\application\actions\GetPatient;
@@ -21,9 +21,9 @@ return [
 
     GetAllRdvs::class => DI\autowire(),
     GetRdvId::class => DI\autowire(),
-    PostCreateRdv::class => DI\autowire(),
-    PostSignIn::class => DI\autowire(),
-    GetRdvByPatient::class => DI\autowire(),
+    //PostCreateRdv::class => DI\autowire(),
+    //PostSignIn::class => DI\autowire(),
+    //GetRdvByPatient::class => DI\autowire(),
     HomeAction::class => DI\autowire(),
     
     

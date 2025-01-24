@@ -13,6 +13,12 @@ return [
             'base_uri' => $c->get('praticiens.api'),
         ]);
     },
+    "guzzle.client.rdv" => function (ContainerInterface $c) {
+        return new GuzzleHttp\Client([
+            // Base URI pour des requêtes relatives
+            'base_uri' => $c->get('rdvs.api'),
+        ]);
+    },
 
     GetAllPraticienAction::class => function (ContainerInterface $c) {
         return new GetAllPraticienAction($c->get("guzzle.client"));

@@ -19,7 +19,7 @@ class GetAllRdvs extends AbstractAction
             return JsonRenderer::render($rs, 200, $rdvs);
 
         }catch(NestedValidationException $e){
-            throw new HttpBadRequestException($rq, "Id du praticien invalide");
+            throw new HttpBadRequestException($rq, "Id du rdv invalide");
         }
     }
 

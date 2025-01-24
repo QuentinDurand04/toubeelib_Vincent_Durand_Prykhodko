@@ -21,8 +21,8 @@ class GetRdvId extends AbstractAction
         return ["rendezVous" => $rdv,
             "links" => [
                 "self" => $routeParser->urlFor("getRdv", ['id' => $rdv->id]),
-                "praticien" => $routeParser->urlFor("getPraticien", ['id' => $rdv->praticien->id]),
-                "patient" => $routeParser->urlFor("getPatient", ['id' => $rdv->patientId])
+                "praticien" => 'oui',
+                "patient" =>'non'
             ]
         ];
     }

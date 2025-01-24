@@ -11,6 +11,7 @@ interface PraticienRepositoryInterface
 
     public function __construct(Container $cont);
     public function getSpecialiteById(string $id): Specialite;
+    public function getSpecialiteByLabel(String $label): Specialite;
     public function getAllPraticiens(): array;
     public function save(Praticien $praticien): string;
     public function getPraticienById(string $id): Praticien;

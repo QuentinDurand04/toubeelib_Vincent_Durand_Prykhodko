@@ -58,9 +58,6 @@ class ServiceRDV implements ServiceRDVInterface {
 
         try {
             $praticien = $this->servicePraticien->getPraticienById($rdv->getPraticienId());
-            if ($praticien->specialiteLabel != $this->servicePraticien->getSpecialiteById($rdv->getSpecialite())->label) {
-                throw new \Exception($praticien->specialiteLabel . "=!" . $rdv->getSpecialite());
-            }
 
             if (!in_array($rdv->getDateHeure(), $this->getListeDisponibilite($rdv->getPraticienId()))) {
                 throw new \Exception("Praticien indisponible");

@@ -2,12 +2,14 @@
 
 namespace gateway\application\actions;
 
+use DI\Container;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Respect\Validation\Exceptions\NestedValidationException;
 use Slim\Exception\HttpBadRequestException;
 use gateway\application\renderer\JsonRenderer;
 use gateway\application\actions\AbstractAction;
+use GuzzleHttp\Exception\ClientException;
 
 class GetAllRdvs extends AbstractAction
 {
@@ -16,7 +18,7 @@ class GetAllRdvs extends AbstractAction
     public function __construct(Container $container)
     {
         parent::__construct($container);
-        $this->guzzle = $container->get('guzzle.client');
+        $this->guzzle = $container->get('guzzle.client.rdv');
     }
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface

@@ -4,19 +4,23 @@ namespace rdv\infrastructure\repositories;
 use DI\Container;
 use Monolog\Logger;
 use PDO;
+use GuzzleHttp\Client;
 use rdv\core\domain\entities\rdv\RendezVous;
 use rdv\core\repositoryInterfaces\RdvRepositoryInterface;
 use rdv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 use rdv\core\repositoryInterfaces\RepositoryInternalException;
+use SebastianBergmann\Environment\Console;
 
 class PgRdvRepository implements  RdvRepositoryInterface{
 
     protected PDO $pdo;
     protected Logger $loger;
+    protected Client $client;
 
     public function __construct(Container $cont){
         $this->pdo=$cont->get('pdo.commun');
         $this->loger = $cont->get(Logger::class)->withName('PgRdvRepository');
+        $this->client = $cont->get('guzzle.client');
 
     }
 
@@ -34,10 +38,9 @@ class PgRdvRepository implements  RdvRepositoryInterface{
             rdv.patientid as patientid,
             rdv.praticienid as praticienid,
             to_char(rdv.date,\'YYYY-MM-DD HH24:MI\') as date, 
-            praticien.specialite as specialite,
             rdv.status as status
-            from rdv,praticien 
-            where rdv.praticienid=praticien.id and rdv.id=:id;';
+            from rdv 
+            where rdv.id=:id;';
             $statement=$this->pdo->prepare($query);
             $statement->execute(['id'=>$id]);
             $rdv=$statement->fetch();
@@ -46,7 +49,6 @@ class PgRdvRepository implements  RdvRepositoryInterface{
                 $retour = new RendezVous(
                     $rdv['praticienid'],
                     $rdv['patientid'],
-                    $rdv['specialite'],
                     \DateTimeImmutable::createFromFormat('Y-m-d H:i',$rdv['date']),
                 $rdv['status']);
                 $retour->setId($rdv['id']);
@@ -107,7 +109,7 @@ class PgRdvRepository implements  RdvRepositoryInterface{
             if($result){
                 $retour = [];
                 foreach($result as $r){
-                    $rdv = new RendezVous($r['praticienid'],$r['patientid'],$r['specialite'],new \DateTimeImmutable($r['date']));
+                    $rdv = new RendezVous($r['praticienid'],$r['patientid'],new \DateTimeImmutable($r['date']));
                     $rdv->setId($r['id']);
                     $retour[] = $rdv;
                 }
@@ -151,7 +153,7 @@ class PgRdvRepository implements  RdvRepositoryInterface{
             if($result){
                 $retour = [];
                 foreach($result as $r){
-                    $rdv = new RendezVous($r['praticienid'],$r['patientid'],$r['specialite'],new \DateTimeImmutable($r['date']), $r['status']);
+                    $rdv = new RendezVous($r['praticienid'],$r['patientid'],new \DateTimeImmutable($r['date']), $r['status']);
                     $rdv->setId($r['id']);
                     $retour[] = $rdv;
                 }
@@ -222,10 +224,8 @@ class PgRdvRepository implements  RdvRepositoryInterface{
             rdv.patientid as patientid,
             rdv.praticienid as praticienid,
             to_char(rdv.date, 'YYYY-MM-DD HH24:MI') as date,
-            praticien.specialite as specialite,
             rdv.status as status
-            from rdv,praticien 
-            where rdv.praticienid=praticien.id;";
+            from rdv;";
             $rdvs = $this->pdo->prepare($query);
             $rdvs->execute();
             $result = $rdvs->fetchAll();
@@ -233,7 +233,7 @@ class PgRdvRepository implements  RdvRepositoryInterface{
             if ($result) {
                 $retour = [];
                 foreach ($result as $r) {
-                    $rdv = new RendezVous($r['praticienid'], $r['patientid'], $r['specialite'], new \DateTimeImmutable($r['date']), $r['status']);
+                    $rdv = new RendezVous($r['praticienid'], $r['patientid'], new \DateTimeImmutable($r['date']), $r['status']);
                     $rdv->setId($r['id']);
                     $retour[] = $rdv;
                 }
