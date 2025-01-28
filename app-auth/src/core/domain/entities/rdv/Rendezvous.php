@@ -1,12 +1,12 @@
 <?php
 
-namespace toubeelib\core\domain\entities\rdv;
+namespace auth\core\domain\entities\rdv;
 
 use DateTimeImmutable;
-use toubeelib\core\domain\entities\Entity;
-use toubeelib\core\dto\InputRdvDto;
-use toubeelib\core\dto\RdvDTO;
-use toubeelib\core\dto\PraticienDTO;
+use auth\core\domain\entities\Entity;
+use auth\core\dto\InputRdvDto;
+use auth\core\dto\RdvDTO;
+use auth\core\dto\PraticienDTO;
 
 class RendezVous extends Entity
 {

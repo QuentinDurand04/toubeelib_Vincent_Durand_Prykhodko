@@ -1,5 +1,5 @@
 <?php
-namespace toubeelib\middlewares;
+namespace auth\middlewares;
 
 use DI\Container;
 use Monolog\Logger;
@@ -9,7 +9,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Exception\HttpUnauthorizedException;
 use Slim\Routing\RouteContext;
-use toubeelib\core\services\praticien\AuthorizationPraticienServiceInterface;
+use auth\core\services\praticien\AuthorizationPraticienServiceInterface;
 
 class AuthzPraticiens implements MiddlewareInterface{
 

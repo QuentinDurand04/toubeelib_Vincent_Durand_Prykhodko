@@ -58,9 +58,6 @@ class ServiceRDV implements ServiceRDVInterface {
 
         try {
             $praticien = $this->servicePraticien->getPraticienById($rdv->getPraticienId());
-            if ($praticien->specialiteLabel != $this->servicePraticien->getSpecialiteById($rdv->getSpecialite())->label) {
-                throw new \Exception($praticien->specialiteLabel . "=!" . $rdv->getSpecialite());
-            }
 
             if (!in_array($rdv->getDateHeure(), $this->getListeDisponibilite($rdv->getPraticienId()))) {
                 throw new \Exception("Praticien indisponible");
@@ -218,18 +215,15 @@ class ServiceRDV implements ServiceRDVInterface {
             throw new \Exception("Impossible de changer les informations d'un rdv qui n'est pas 'maintenu'");
         }
         
-        if ($rdvOld->getDateHeure() != $inputRdv->getDateHeure() || $rdvOld->getSpecialite() != $inputRdv->getSpecialite() ) {
+        if ($rdvOld->getDateHeure() != $inputRdv->getDateHeure()) {
             
             $this->annulerRendezVous($inputRdv->getId()); 
             $res = $this->creerRendezvous($inputRdv);
-            $this->rdvRepository->modifierRdv(new RendezVous($inputRdv->getPraticienId(), $inputRdv->getPatientId(), $inputRdv->getSpecialite(), $inputRdv->getDateHeure(),$rdvOld->getStatus()));
+            $this->rdvRepository->modifierRdv(new RendezVous($inputRdv->getPraticienId(), $inputRdv->getPatientId(), $inputRdv->getDateHeure(),$rdvOld->getStatus()));
             $res->status = $rdvOld->getStatus();
             return $res;
         } else {
-            if ($praticien->specialiteLabel != $this->servicePraticien->getSpecialiteById($rdvOld->getSpecialite())->label) {
-                throw new \Exception($praticien->specialiteLabel . "=!" . $rdvOld->getSpecialite());
-            }
-            $this->rdvRepository->modifierRdv(new RendezVous($inputRdv->getPraticienId(), $inputRdv->getPatientId(), $inputRdv->getSpecialite(), $inputRdv->getDateHeure(),$rdvOld->getStatus()));
+            $this->rdvRepository->modifierRdv(new RendezVous($inputRdv->getPraticienId(), $inputRdv->getPatientId(), $inputRdv->getDateHeure(),$rdvOld->getStatus()));
 
 
             //$rdvOld->specialiteLabel = $inputRdv->getSpecialite();

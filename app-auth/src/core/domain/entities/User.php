@@ -1,6 +1,6 @@
 <?php
 
-namespace toubeelib\core\domain\entities;
+namespace auth\core\domain\entities;
 
 class User extends Entity{
     protected string $email, $password;

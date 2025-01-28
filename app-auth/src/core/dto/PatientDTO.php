@@ -1,9 +1,9 @@
 <?php
 
-namespace toubeelib\core\dto;
+namespace auth\core\dto;
 
-use toubeelib\core\domain\entities\patient\Patient;
-use toubeelib\core\dto\DTO;
+use auth\core\domain\entities\patient\Patient;
+use auth\core\dto\DTO;
 
 class PatientDTO extends DTO
 {

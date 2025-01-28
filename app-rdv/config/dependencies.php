@@ -20,26 +20,46 @@ use rdv\providers\auth\JWTManager;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Formatter\LineFormatter;
-
+use rdv\core\repositoryInterfaces\PraticienRepositoryInterface;
+use rdv\core\services\praticien\ServicePraticien;
+use rdv\infrastructure\repositories\PgPraticienRepository;
+use rdv\core\services\patient\ServicePatient;
+use rdv\core\services\patient\ServicePatientInterface;
+use rdv\core\services\praticien\ServicePraticienInterface;
+use rdv\core\repositoryInterfaces\PatientRepositoryInterface;
+use rdv\infrastructure\repositories\PgPatientRepository;
 
 return [
 
     //Repository interface
     RdvRepositoryInterface::class => DI\autowire(PgRdvRepository::class),
     AuthRepositoryInterface::class=> DI\autowire(PgAuthRepository::class),
+    PraticienRepositoryInterface::class => DI\autowire(PgPraticienRepository::class),
+    PatientRepositoryInterface::class => DI\autowire(PgPatientRepository::class),
 
     //Services
     ServiceRDVInterface::class => DI\autowire(ServiceRDV::class),
     AuthorizationRendezVousServiceInterface::class => DI\autowire(AuthorizationRendezVousService::class),
+    ServicePraticienInterface::class => DI\autowire(ServicePraticien::class),
+    ServicePatientInterface::class => DI\autowire(ServicePatient::class),
 
 
     AuthzRDV::class => DI\autowire(),
-    AuthzPatient::class =>DI\autowire(),
-    AuthzPraticiens::class => DI\autowire(),
+
+    "guzzle.client" => function (ContainerInterface $c) {
+        return new GuzzleHttp\Client([
+            // Base URI pour des requêtes relatives
+            'base_uri' => $c->get('praticiens.api'),
+        ]);
+    },
 
     //PDO
     'pdo.commun' => function(ContainerInterface $c){
         $config= parse_ini_file($c->get('db.config'));
+        return new PDO($config['driver'].':host='.$config['host'].';port='.$config['port'].';dbname='.$config['dbname'].';user='.$config['user'].';password='.$config['password']);
+    },
+    'pdo.specialite' => function(ContainerInterface $c){
+        $config= parse_ini_file($c->get('db.config.spe'));
         return new PDO($config['driver'].':host='.$config['host'].';port='.$config['port'].';dbname='.$config['dbname'].';user='.$config['user'].';password='.$config['password']);
     },
     'pdo.auth' => function(ContainerInterface $c){
@@ -66,7 +86,7 @@ return [
 
 
     //midleware 
-    AuthnMiddleware::class => DI\autowire(AuthnMiddleware::class),
+    //AuthnMiddleware::class => DI\autowire(AuthnMiddleware::class),
     CorsMiddleware::class => DI\autowire(CorsMiddleware::class),
 
 

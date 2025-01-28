@@ -1,9 +1,9 @@
 <?php
 
-namespace toubeelib\core\repositoryInterfaces;
+namespace auth\core\repositoryInterfaces;
 
 use DI\Container;
-use toubeelib\core\domain\entities\patient\Patient;
+use auth\core\domain\entities\patient\Patient;
 
 interface PatientRepositoryInterface{
 

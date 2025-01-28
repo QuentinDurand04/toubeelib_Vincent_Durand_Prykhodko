@@ -1,12 +1,12 @@
 <?php
 
-namespace toubeelib\infrastructure\repositories;
+namespace auth\infrastructure\repositories;
 
 use DI\Container;
 use Monolog\Logger;
-use toubeelib\core\domain\entities\User;
-use toubeelib\core\repositoryInterfaces\AuthRepositoryInterface;
-use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use auth\core\domain\entities\User;
+use auth\core\repositoryInterfaces\AuthRepositoryInterface;
+use auth\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 
 class PgAuthRepository implements AuthRepositoryInterface{
     protected \PDO $pdo;
@@ -48,8 +48,6 @@ class PgAuthRepository implements AuthRepositoryInterface{
         $rq=$this->pdo->prepare($query);
         $rq->execute(['email'=>$email]);
         $user = $rq->fetch();
-        var_dump($user);
-        var_dump($email);
             return new User($user['id'],$user['email'], $user['password'], $user['role']);
         }catch(\PDOException $e){
             $this->loger->error($e->getMessage());

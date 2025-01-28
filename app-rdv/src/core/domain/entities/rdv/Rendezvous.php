@@ -20,7 +20,6 @@ class RendezVous extends Entity
 
     protected \DateTimeImmutable $dateHeure;
     protected string $praticienId;
-    protected string $specialite;
     protected string $patientId;
 
     protected int $status;
@@ -40,11 +39,6 @@ class RendezVous extends Entity
         return $this->praticienId;
     }
 
-    public function getSpecialite(): string
-    {
-        return $this->specialite;
-    }
-
     public function getPatientId(): string
     {
         return $this->patientId;
@@ -60,12 +54,11 @@ class RendezVous extends Entity
      *       $r1->setID('r1');
      * @param mixed $status
      */
-    public function __construct(string $praticienId, string $patientId, string $specialite, \DateTimeImmutable $dateHeure, $status = RendezVous::MAINTENU)
+    public function __construct(string $praticienId, string $patientId, \DateTimeImmutable $dateHeure, $status = RendezVous::MAINTENU)
     {
         $this->praticienId = $praticienId;
         $this->patientId = $patientId;
         $this->dateHeure = $dateHeure;
-        $this->specialite = $specialite;
         $this->status = $status;
     }
 
@@ -74,7 +67,6 @@ class RendezVous extends Entity
         return new RendezVous(
             $rdv->getPraticienId(),
             $rdv->getPatientId(),
-            $rdv->getSpecialite(),
             $rdv->getDateHeure());
     }
 

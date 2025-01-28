@@ -1,12 +1,12 @@
 <?php
-// docker exec -it toubeelib-api.toubeelib-1 php src/infrastructure/genereDB.php
+// docker exec -it auth-api.auth-1 php src/infrastructure/genereDB.php
 $nbPraticien=50;
 $nbPatient=400;
 $nbRdv=240;
 require_once __DIR__ .'/../../vendor/autoload.php';
 
-use toubeelib\core\domain\entities\rdv\RendezVous;
-use toubeelib\core\services\rdv\ServiceRDV;
+use auth\core\domain\entities\rdv\RendezVous;
+use auth\core\services\rdv\ServiceRDV;
 
 $drop='drop table if exists patient,praticien,status,specialite,rdv;';
 $cspecialite='

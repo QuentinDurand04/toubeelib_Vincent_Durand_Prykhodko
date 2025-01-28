@@ -2,6 +2,7 @@
 namespace rdv\infrastructure\repositories;
 
 use DI\Container;
+use GuzzleHttp\Client;
 use Monolog\Logger;
 use rdv\core\dto\PraticienDTO;
 use rdv\core\repositoryInterfaces\RepositoryInternalException;
@@ -10,21 +11,26 @@ use rdv\core\domain\entities\praticien\Specialite;
 use rdv\core\repositoryInterfaces\PraticienRepositoryInterface;
 use PDO;
 use rdv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use SebastianBergmann\Environment\Console;
 
 class PgPraticienRepository implements PraticienRepositoryInterface{
 
     protected PDO $pdo;
+    protected PDO $pdoSpe;
     protected Logger $loger;
+    protected Client $guzzle;
 
     public function __construct(Container $cont){
         $this->pdo=$cont->get('pdo.commun');
+        $this->pdoSpe=$cont->get('pdo.specialite');
         $this->loger= $cont->get(Logger::class)->withName("PgPraticienRepository");
+        $this->guzzle = $cont->get('guzzle.client');
     }
     public function getSpecialiteById(string $id): Specialite
     {
         try{
             $query = 'select * from specialite where id = :id;';
-            $speSelect=$this->pdo->prepare($query);
+            $speSelect=$this->pdoSpe->prepare($query);
             $speSelect->execute(['id'=> $id]);
             $result=$speSelect->fetch();
 
@@ -40,6 +46,25 @@ class PgPraticienRepository implements PraticienRepositoryInterface{
         }
     }
 
+    public function getSpecialiteByLabel(String $label): Specialite{
+        try{
+            $query = 'select * from specialite where label = :label;';
+            $speSelect=$this->pdoSpe->prepare($query);
+            $speSelect->execute(['label'=> $label]);
+            $result=$speSelect->fetch();
+
+            if($result){
+                return new Specialite($result['id'], $result['label'], $result['description']);
+            }else{
+                throw new RepositoryEntityNotFoundException("Specialite $label non trouvé");
+            }
+
+        }catch(\PDOException $e){
+            
+            throw new RepositoryInternalException($e->getMessage());
+        }
+    }
+
     public function save(Praticien $praticien): string
     {
     }
@@ -47,29 +72,13 @@ class PgPraticienRepository implements PraticienRepositoryInterface{
     public function getPraticienById(string $id): Praticien
     {
         try{
-            $query='
-            select
-            praticien.id as id,
-            praticien.nom as nom,
-            praticien.prenom as prenom,
-            praticien.adresse as adresse,
-            praticien.tel as tel,
-            specialite.id as speid,
-            specialite.label as spelabel,
-            specialite.description as spedes 
-            from 
-            praticien,
-            specialite 
-            where 
-            specialite.id=praticien.specialite and
-            praticien.id=:id;';
-            $praticienSelect=$this->pdo->prepare($query);
-            $praticienSelect->execute(['id' => $id]);
-            $result = $praticienSelect->fetch();
+            $reponse = $this->guzzle->get("/praticiens/".$id);
+            $result = json_decode($reponse->getBody()->getContents(),true);
             if($result){
                 $retour= new Praticien($result['nom'],$result['prenom'],$result['adresse'],$result['tel']);
                 $retour->setId($result['id']);
-                $retour->setSpecialite(new Specialite($result['speid'],$result['spelabel'],$result['spedes']));
+                $spe = $this->getSpecialiteByLabel($result['specialiteLabel']);
+                $retour->setSpecialite($spe);
                 return $retour;
             }else{
                 throw new RepositoryEntityNotFoundException("Praticien $id non trouvé");

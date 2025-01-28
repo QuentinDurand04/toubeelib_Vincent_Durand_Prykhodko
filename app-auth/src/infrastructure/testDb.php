@@ -1,18 +1,18 @@
 <?php
-// docker exec -it toubeelib-api.toubeelib-1 php src/infrastructure/genereDB.php
+// docker exec -it auth-api.auth-1 php src/infrastructure/genereDB.php
 $nbPraticien=50;
 $nbPatient=400;
 $nbRdv=240;
 require_once __DIR__ .'/../../vendor/autoload.php';
 
-use toubeelib\core\domain\entities\rdv\RendezVous;
-use toubeelib\core\services\rdv\ServiceRDV;
+use auth\core\domain\entities\rdv\RendezVous;
+use auth\core\services\rdv\ServiceRDV;
 
 
 
 
 
-$co = new PDO('pgsql:host=toubeelib.db;port=5432;dbname=toubeelib;user=user;password=toto');
+$co = new PDO('pgsql:host=auth.db;port=5432;dbname=auth;user=user;password=toto');
 
 
             $query = "select 

@@ -1,5 +1,5 @@
 <?php
-namespace toubeelib\core\repositoryInterfaces;
+namespace auth\core\repositoryInterfaces;
 
 use Exception;
 

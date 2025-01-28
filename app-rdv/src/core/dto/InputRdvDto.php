@@ -27,11 +27,6 @@ class InputRdvDto extends DTO
         return $this->praticienId;
     }
 
-    public function getSpecialite(): string
-    {
-        return $this->specialite;
-    }
-
     public function getPatientId(): string
     {
         return $this->patientId;
@@ -48,11 +43,10 @@ class InputRdvDto extends DTO
      * @param string $patientId
      * @param \DateTimeImmutable $dateHeure
      */
-    public function __construct(string $praticienId, string $patientId, string $specialite, string $DateHeure)
+    public function __construct(string $praticienId, string $patientId, string $DateHeure)
     {
         $this->praticienId = $praticienId;
         $this->patientId = $patientId;
-        $this->specialite = $specialite;
         $this->dateHeure = \DateTimeImmutable::createFromFormat('Y-m-d H:i', $DateHeure );
         if($this->dateHeure == false){
             throw new ServiceRDVInvalidDataException('format de date invalide');
@@ -63,7 +57,7 @@ class InputRdvDto extends DTO
      * inputRdvDto depuis array avec praticienId, patientId, specialite, dateHeure
      */
     public static function fromArray(array $rdv): InputRdvDto{
-        return new InputRdvDto($rdv['praticienId'], $rdv['patientId'], $rdv['specialite'], $rdv['dateHeure']);
+        return new InputRdvDto($rdv['praticienId'], $rdv['patientId'], $rdv['dateHeure']);
     }
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace toubeelib\core\services\rdv;
+namespace auth\core\services\rdv;
 
 use DI\Container;
 use DateInterval;
@@ -9,15 +9,15 @@ use Error;
 use Exception;
 use Faker\Core\Uuid;
 use Ramsey\Uuid\Uuid as RamseyUuid;
-use toubeelib\core\domain\entities\rdv\RendezVous;
-use toubeelib\core\dto\InputRdvDto;
-use toubeelib\core\dto\RdvDTO;
-use toubeelib\core\repositoryInterfaces\RdvRepositoryInterface;
-use toubeelib\core\services\ServiceRessourceNotFoundException;
-use toubeelib\core\services\ServiceOperationInvalideException;
-use toubeelib\core\services\praticien\ServicePraticien;
-use toubeelib\core\services\praticien\ServicePraticienInterface;
-use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use auth\core\domain\entities\rdv\RendezVous;
+use auth\core\dto\InputRdvDto;
+use auth\core\dto\RdvDTO;
+use auth\core\repositoryInterfaces\RdvRepositoryInterface;
+use auth\core\services\ServiceRessourceNotFoundException;
+use auth\core\services\ServiceOperationInvalideException;
+use auth\core\services\praticien\ServicePraticien;
+use auth\core\services\praticien\ServicePraticienInterface;
+use auth\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 
 
 class ServiceRDV implements ServiceRDVInterface {

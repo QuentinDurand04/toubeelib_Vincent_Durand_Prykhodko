@@ -4,8 +4,8 @@ use DI\ContainerBuilder;
 use Slim\Exception\HttpUnauthorizedException;
 use Slim\Factory\AppFactory;
 use Slim\Middleware\ErrorMiddleware;
-use toubeelib\middlewares\AuthnMiddleware;
-use toubeelib\middlewares\CorsMiddleware;
+use auth\middlewares\AuthnMiddleware;
+use auth\middlewares\CorsMiddleware;
 
 
 
