@@ -5,6 +5,7 @@ use DI\Container;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Firebase\JWT\SignatureInvalidException;
 use Monolog\Logger;
 use auth\core\dto\AuthDTO;
 
@@ -53,13 +54,17 @@ class JWTManager{
 	}
 
 	public function decodeToken(string $token): array{
-		try{
-
-		return (array) JWT::decode($token, new Key($this->key, $this->algo));
-		}catch(ExpiredException $e){
-			// $this->loger->error($e->getMessage());
-			$this->loger->error($e->getMessage());
-			throw new AuthInvalidException($e->getMessage());
-		}
+        try {
+            return (array) JWT::decode($token, new Key($this->key, $this->algo));
+        } catch (ExpiredException $e) {
+            $this->loger->error("Expired token: " . $e->getMessage());
+            throw new AuthInvalidException("Expired token");
+        } catch (SignatureInvalidException $e) {
+            $this->loger->error("Invalid signature: " . $e->getMessage());
+            throw new AuthInvalidException("Invalid signature");
+        } catch (\Exception $e) {
+            $this->loger->error("Token decode error: " . $e->getMessage());
+            throw new AuthInvalidException("Invalid token");
+        }
 	}
 }

@@ -4,7 +4,7 @@ use Psr\Container\ContainerInterface;
 use rdv\core\repositoryInterfaces\RdvRepositoryInterface;
 use rdv\core\services\rdv\AuthorizationRendezVousServiceInterface;
 
-class AuthorizationPatientService implements AuthorizationPatientServiceInterface{
+class   AuthorizationPatientService implements AuthorizationPatientServiceInterface{
     public function __construct(ContainerInterface $co)
     {
     }

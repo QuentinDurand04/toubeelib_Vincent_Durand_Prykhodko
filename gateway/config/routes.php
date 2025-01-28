@@ -11,7 +11,6 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->get('/', HomeAction::class);
 
-    
     $app->get("/praticiens[/]", PraticienActions::class )->setName('getAllPraticiens');
 
     $app->get("/praticiens/{id}[/]", PraticienActions::class)->setName('getPraticien');
@@ -24,8 +23,9 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->post('/rdvs[/]', RdvsActions::class)->setName('createRdv');
 
-    $app->post('/signin[/]', PostSignIn::class)->setName('signIn');
+    $app->get('/tokens/validate', \gateway\application\actions\TokenValidation::class);
 
+    $app->post('/signin[/]', PostSignIn::class)->setName('signIn');
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;

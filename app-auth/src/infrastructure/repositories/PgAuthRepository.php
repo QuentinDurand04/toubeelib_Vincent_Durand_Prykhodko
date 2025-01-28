@@ -48,8 +48,6 @@ class PgAuthRepository implements AuthRepositoryInterface{
         $rq=$this->pdo->prepare($query);
         $rq->execute(['email'=>$email]);
         $user = $rq->fetch();
-        var_dump($user);
-        var_dump($email);
             return new User($user['id'],$user['email'], $user['password'], $user['role']);
         }catch(\PDOException $e){
             $this->loger->error($e->getMessage());

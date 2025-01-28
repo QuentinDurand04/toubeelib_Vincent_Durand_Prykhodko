@@ -8,4 +8,3 @@ CREATE TABLE "public"."users" (
     CONSTRAINT "users_id" PRIMARY KEY ("id")
 ) WITH (oids = false);
 
-

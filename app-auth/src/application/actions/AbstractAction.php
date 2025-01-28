@@ -26,6 +26,7 @@ abstract class AbstractAction
 
     public function __construct(Container $cont)
     {
+        $this->authProvider = $cont->get(AuthnProviderInterface::class);
         $this->serviceRdv = $cont->get(ServiceRDVInterface::class);
         $this->servicePraticien = $cont->get(ServicePraticienInterface::class);
         $this->servicePatient = $cont->get(ServicePatientInterface::class);

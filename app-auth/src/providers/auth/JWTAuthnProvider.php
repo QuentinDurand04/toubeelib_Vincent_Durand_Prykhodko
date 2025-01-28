@@ -29,6 +29,15 @@ class JWTAuthnProvider implements AuthnProviderInterface{
 
 	}
 
+    public function validateToken(string $atoken): bool{
+        try {
+            $this->jwtManager->decodeToken($atoken);
+            return true;
+        } catch (\Exception $e) {
+            throw new AuthInvalidException($e->getMessage(), 0, $e);
+        }
+    }
+
 	public function refresh(AuthDTO $credentials): AuthDTO
 	{
 	}
