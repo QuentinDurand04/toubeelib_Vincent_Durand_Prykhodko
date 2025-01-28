@@ -18,11 +18,13 @@ class GetRdvId extends AbstractAction
 
     public static function ajouterLiensRdv(RdvDTO $rdv, ServerRequestInterface $rq):array{
         $routeParser = RouteContext::fromRequest($rq)->getRouteParser();
+        $praticienId = $rdv->getPraticienDTO()->getId();
+        $patientId = $rdv->getPatientId();
         return ["rendezVous" => $rdv,
             "links" => [
                 "self" => $routeParser->urlFor("getRdv", ['id' => $rdv->id]),
-                "praticien" => '',
-                "patient" =>''
+                "praticien" => '/praticiens/'.$praticienId,
+                "patient" =>'/patients/'.$patientId . '(pas encore implémentée)'
             ]
         ];
     }

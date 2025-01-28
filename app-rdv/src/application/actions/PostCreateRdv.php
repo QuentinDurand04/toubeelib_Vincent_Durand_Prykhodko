@@ -21,6 +21,8 @@ use rdv\infrastructure\repositories\ArrayRdvRepository;
 class PostCreateRdv extends AbstractAction
 {
 
+    protected String $formatDate = 'YYYY-mm-dd HH:ii';
+
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
@@ -28,18 +30,17 @@ class PostCreateRdv extends AbstractAction
         $jsonRdv = $rq->getParsedBody();
 
         $status = 200;
-        $champs = ['praticienId', 'patientId', 'specialite', 'dateHeure'];
+        $champs = ['praticienId', 'patientId', 'dateHeure'];
 
         $rdvInputValidator = Validator::key('praticienId', Validator::stringType()->notEmpty())
             ->key('patientId', Validator::stringType()->notEmpty())
-            ->key('specialite', Validator::stringType()->notEmpty())
-            ->key('dateHeure', Validator::dateTime($this->formatDate)->notEmpty());
+            ->key('dateHeure', Validator::stringType()->notEmpty()->dateTime($this->formatDate));
 
         try {
             //validation
             $rdvInputValidator->assert($jsonRdv);
             //formatage
-            $inputRdvDto = new InputRdvDto($jsonRdv['praticienId'], $jsonRdv['patientId'], $jsonRdv['specialite'], $jsonRdv['dateHeure']);
+            $inputRdvDto = new InputRdvDto($jsonRdv['praticienId'], $jsonRdv['patientId'], $jsonRdv['dateHeure']);
             $dtoRendezVousCree = $this->serviceRdv->creerRendezvous($inputRdvDto);
 
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 use Slim\Exception\HttpNotFoundException;
 use gateway\application\actions\PraticienActions;
 use gateway\application\actions\HomeAction;
-use gateway\application\actions\GetAllRdvs;
+use gateway\application\actions\RdvsActions;
 use gateway\application\actions\PostSignIn;
 
 return function (\Slim\App $app): \Slim\App {
@@ -18,9 +18,11 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->get("/praticiens/{id}/rdvs[/]", PraticienActions::class)->setName('getRdvsPraticien');
 
-    $app->get("/rdvs[/]", GetAllRdvs::class)->setName('getAllRdvs');
+    $app->get("/rdvs[/]", RdvsActions::class)->setName('getAllRdvs');
     
-    $app->get("/rdvs/{id}[/]", GetAllRdvs::class)->setName('getRdvsId');
+    $app->get("/rdvs/{id}[/]", RdvsActions::class)->setName('getRdvsId');
+
+    $app->post('/rdvs[/]', RdvsActions::class)->setName('createRdv');
 
     $app->post('/signin[/]', PostSignIn::class)->setName('signIn');
 

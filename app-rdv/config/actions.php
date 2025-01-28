@@ -13,7 +13,7 @@ return [
 
     GetAllRdvs::class => DI\autowire(),
     GetRdvId::class => DI\autowire(),
-    //PostCreateRdv::class => DI\autowire(),
+    PostCreateRdv::class => DI\autowire(),
     //PostSignIn::class => DI\autowire(),
     //GetRdvByPatient::class => DI\autowire(),
     HomeAction::class => DI\autowire(),

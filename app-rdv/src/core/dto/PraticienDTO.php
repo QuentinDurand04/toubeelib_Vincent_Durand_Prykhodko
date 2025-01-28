@@ -24,6 +24,11 @@ class PraticienDTO extends DTO
         $this->specialiteLabel = $p->specialite->label;
     }
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
     public function jsonSerialize(): array
     {
         $retour= get_object_vars($this);

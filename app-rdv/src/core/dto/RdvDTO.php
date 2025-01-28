@@ -23,6 +23,15 @@ class RdvDTO extends DTO
         return $this->status;
     }
 
+    public function getPraticienDTO(): PraticienDTO
+    {
+        return $this->praticien;
+    }
+
+    public function getPatientId(): string
+    {
+        return $this->patientId;
+    }
 
     public function __construct(RendezVous $r, PraticienDTO $praticienDTO)
     {

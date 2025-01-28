@@ -39,7 +39,6 @@ class InputRdvDto extends DTO
 
     /**
      * @param string $praticienId
-     * @param string $specialite
      * @param string $patientId
      * @param \DateTimeImmutable $dateHeure
      */
@@ -54,7 +53,7 @@ class InputRdvDto extends DTO
     }
     /**
      * @param array<int,mixed> $rdv
-     * inputRdvDto depuis array avec praticienId, patientId, specialite, dateHeure
+     * inputRdvDto depuis array avec praticienId, patientId, dateHeure
      */
     public static function fromArray(array $rdv): InputRdvDto{
         return new InputRdvDto($rdv['praticienId'], $rdv['patientId'], $rdv['dateHeure']);

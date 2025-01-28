@@ -59,9 +59,11 @@ class ServiceRDV implements ServiceRDVInterface {
         try {
             $praticien = $this->servicePraticien->getPraticienById($rdv->getPraticienId());
 
+            /*
             if (!in_array($rdv->getDateHeure(), $this->getListeDisponibilite($rdv->getPraticienId()))) {
                 throw new \Exception("Praticien indisponible");
             }
+            */
         } catch (\Exception $e) {
             throw new ServiceRDVInvalidDataException("Création de rdv impossible : " . $e->getMessage());
         }
