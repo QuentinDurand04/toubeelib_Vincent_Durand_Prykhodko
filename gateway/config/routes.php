@@ -10,7 +10,6 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->get('/', HomeAction::class);
 
-    
     $app->get("/praticiens[/]", PraticienActions::class )->setName('getAllPraticiens');
 
     $app->get("/praticiens/{id}[/]", PraticienActions::class)->setName('getPraticien');
@@ -20,7 +19,6 @@ return function (\Slim\App $app): \Slim\App {
     $app->get("/rdvs[/]", GetAllRdvs::class)->setName('getAllRdvs');
     
     $app->get("/rdvs/{id}[/]", GetAllRdvs::class)->setName('getRdvsId');
-
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;
