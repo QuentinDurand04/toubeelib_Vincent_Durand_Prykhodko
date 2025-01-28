@@ -1,5 +1,5 @@
 <?php
-namespace toubeelib\core\services;
+namespace auth\core\services;
 
 use \Exception as Exception;
 class ServiceRessourceNotFoundException extends Exception{

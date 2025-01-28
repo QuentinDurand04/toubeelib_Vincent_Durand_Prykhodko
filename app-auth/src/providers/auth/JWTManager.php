@@ -1,12 +1,12 @@
 <?php
-namespace toubeelib\providers\auth;
+namespace auth\providers\auth;
 
 use DI\Container;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Monolog\Logger;
-use toubeelib\core\dto\AuthDTO;
+use auth\core\dto\AuthDTO;
 
 class JWTManager{
 

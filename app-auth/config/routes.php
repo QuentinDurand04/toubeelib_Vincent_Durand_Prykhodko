@@ -5,33 +5,33 @@ use Slim\Exception\HttpNotFoundException;
 
 
 
-use toubeelib\application\actions\GetPatient;
-use toubeelib\application\actions\GetPraticien;
-use toubeelib\application\actions\GetRdvByPatient;
+use auth\application\actions\GetPatient;
+use auth\application\actions\GetPraticien;
+use auth\application\actions\GetRdvByPatient;
 
-use toubeelib\application\actions\PostSignIn;
-use toubeelib\middlewares\AuthnMiddleware;
-use toubeelib\middlewares\AuthzPatient;
-use toubeelib\middlewares\AuthzPraticiens;
-use toubeelib\middlewares\AuthzRDV;
+use auth\application\actions\PostSignIn;
+use auth\middlewares\AuthnMiddleware;
+use auth\middlewares\AuthzPatient;
+use auth\middlewares\AuthzPraticiens;
+use auth\middlewares\AuthzRDV;
 
 return function (\Slim\App $app): \Slim\App {
 
-    $app->get('/', \toubeelib\application\actions\HomeAction::class);
+    $app->get('/', \auth\application\actions\HomeAction::class);
 
     //RENDEZVOUS
-    $app->get('/rdvs[/]', \toubeelib\application\actions\GetAllRdvs::class)
+    $app->get('/rdvs[/]', \auth\application\actions\GetAllRdvs::class)
         ->setName('getAllRdvs');
 
-    $app->get('/praticiens/{id}/rdvs[/]', \toubeelib\application\actions\GetPraticienRdvs::class)
+    $app->get('/praticiens/{id}/rdvs[/]', \auth\application\actions\GetPraticienRdvs::class)
         ->setName('rdvPraticien');
 
-    $app->post('/rdvs[/]', \toubeelib\application\actions\PostCreateRdv::class)
+    $app->post('/rdvs[/]', \auth\application\actions\PostCreateRdv::class)
         ->setName('createRdv');
 //        ->add(AuthnMiddleware::class);
     ;
 
-    $app->get('/rdvs/{id}[/]', \toubeelib\application\actions\GetRdvId::class)
+    $app->get('/rdvs/{id}[/]', \auth\application\actions\GetRdvId::class)
         ->setName('getRdv');
 //        ->add(AuthzRDV::class)
 //        ->add(AuthnMiddleware::class);
@@ -48,10 +48,10 @@ return function (\Slim\App $app): \Slim\App {
 //        ->add(AuthnMiddleware::class);
 
     //PRATICIENS
-    $app->get('/praticiens[/]', \toubeelib\application\actions\GetAllPraticien::class)
+    $app->get('/praticiens[/]', \auth\application\actions\GetAllPraticien::class)
         ->setName('getAllPraticien');
 
-    /*$app->get('/praticiens/{id}/rdvs[/]', \toubeelib\application\actions\GetPraticienPlanning::class)
+    /*$app->get('/praticiens/{id}/rdvs[/]', \auth\application\actions\GetPraticienPlanning::class)
         ->setName('planningPraticien');*/
 //        ->add(AuthzPraticiens::class)
 //        ->add(AuthnMiddleware::class);
