@@ -1,5 +1,5 @@
 <?php
-namespace toubeelib\middlewares;
+namespace auth\middlewares;
 
 use DI\Container;
 use Exception;
@@ -10,8 +10,8 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Exception\HttpUnauthorizedException;
 use Slim\Routing\RouteContext;
-use toubeelib\providers\auth\AuthInvalidException;
-use toubeelib\providers\auth\AuthnProviderInterface;
+use auth\providers\auth\AuthInvalidException;
+use auth\providers\auth\AuthnProviderInterface;
 
 class AuthnMiddleware implements MiddlewareInterface{
 

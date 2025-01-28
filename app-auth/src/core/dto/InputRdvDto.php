@@ -1,12 +1,12 @@
 <?php
 
-namespace toubeelib\core\dto;
+namespace auth\core\dto;
 
 use DateTimeImmutable;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use toubeelib\application\actions\AbstractAction;
-use toubeelib\core\services\rdv\ServiceRDVInvalidDataException;
+use auth\application\actions\AbstractAction;
+use auth\core\services\rdv\ServiceRDVInvalidDataException;
 use function PHPUnit\Framework\isFalse;
 
 class InputRdvDto extends DTO

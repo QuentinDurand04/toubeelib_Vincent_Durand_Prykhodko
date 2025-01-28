@@ -1,11 +1,11 @@
 <?php
 
-namespace toubeelib\core\repositoryInterfaces;
+namespace auth\core\repositoryInterfaces;
 
 use DI\Container;
 use SebastianBergmann\CodeCoverage\Report\Html\Renderer;
-use toubeelib\core\domain\entities\rdv\RendezVous;
-use toubeelib\core\dto\InputRdvDto;
+use auth\core\domain\entities\rdv\RendezVous;
+use auth\core\dto\InputRdvDto;
 
 interface RdvRepositoryInterface
 {

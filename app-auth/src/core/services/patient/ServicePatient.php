@@ -1,10 +1,10 @@
 <?php
 
-namespace toubeelib\core\services\patient;
+namespace auth\core\services\patient;
 
 use DI\Container;
-use toubeelib\core\dto\PatientDTO;
-use toubeelib\core\repositoryInterfaces\PatientRepositoryInterface;
+use auth\core\dto\PatientDTO;
+use auth\core\repositoryInterfaces\PatientRepositoryInterface;
 
 class ServicePatient implements ServicePatientInterface{
     protected PatientRepositoryInterface $repoPatient;

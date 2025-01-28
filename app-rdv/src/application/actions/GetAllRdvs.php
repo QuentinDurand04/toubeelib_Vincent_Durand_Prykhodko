@@ -17,6 +17,7 @@ class GetAllRdvs extends AbstractAction
 
             $rdvs = $this->serviceRdv->getAllRdvs();
             return JsonRenderer::render($rs, 200, $rdvs);
+            console.log("Récupération de tous les rdvs");
 
         }catch(NestedValidationException $e){
             throw new HttpBadRequestException($rq, "Id du rdv invalide");
