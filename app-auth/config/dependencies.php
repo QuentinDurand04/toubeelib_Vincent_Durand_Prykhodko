@@ -64,7 +64,7 @@ return [
         return new PDO($config['driver'].':host='.$config['host'].';port='.$config['port'].';dbname='.$config['dbname'].';user='.$config['user'].';password='.$config['password']);
     },
     'pdo.auth' => function(ContainerInterface $c){
-        $config = parse_ini_file($c->get('auth.db.config'));
+        $config = parse_ini_file($c->get('db.config'));
         return new PDO($config['driver'].':host='.$config['host'].';port='.$config['port'].';dbname='.$config['dbname'].';user='.$config['user'].';password='.$config['password']);
     },
 

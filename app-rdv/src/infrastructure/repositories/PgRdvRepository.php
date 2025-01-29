@@ -98,10 +98,8 @@ class PgRdvRepository implements  RdvRepositoryInterface{
     public function getRdvByPraticien(string $id): array
     {
         try{
-            $query = "select 
-            rdv.id as id,rdv.patientid as patientid,rdv.praticienid as praticienid,
-            rdv.date as date, praticien.specialite as specialite 
-            from rdv,praticien,specialite where rdv.praticienId=praticien.id and praticien.specialite=specialite.id and praticien.id= :id;";
+            $query = "select *
+            from rdv where rdv.praticienId= :id;";
             $rdvs=$this->pdo->prepare($query);
             $rdvs->execute(['id'=> $id]);
             $result = $rdvs->fetchAll();

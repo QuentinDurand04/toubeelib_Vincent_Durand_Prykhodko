@@ -17,6 +17,7 @@ interface ServiceRDVInterface
     public function getListeDisponibilite(string $id): array;
     public function getListeDisponibiliteDate(string $id, string $test_start_Date, string $test_end_Date): array;
     public function getRdvByPatient(string $id):array;
+    public function getRdvsByPraticien(string $id):array;
 
     public function getPlanningPraticien(string $idPraticien, ?string $test_start_Date, ?string $test_end_Date): array;
 }

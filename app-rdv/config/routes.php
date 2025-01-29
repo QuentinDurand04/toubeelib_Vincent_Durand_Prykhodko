@@ -33,6 +33,9 @@ return function (\Slim\App $app): \Slim\App {
 //        ->add(AuthzRDV::class)
 //        ->add(AuthnMiddleware::class);
 
+    $app->get('/rdvs/praticien/{id}[/]', \rdv\application\actions\GetRdvsByPraticien::class)
+        ->setName('getRdvsByPraticien');
+
     $app->post('/signin[/]', PostSignIn::class)->setName('signIn');
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {

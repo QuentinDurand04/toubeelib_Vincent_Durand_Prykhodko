@@ -7,7 +7,7 @@ use rdv\application\actions\GetRdvId;
 use rdv\application\actions\PostCreateRdv;
 use rdv\application\actions\PostSignIn;
 use rdv\application\actions\GetRdvByPatient;
-
+use rdv\application\actions\GetRdvsByPraticien;
 
 return [
 
@@ -17,6 +17,7 @@ return [
     //PostSignIn::class => DI\autowire(),
     //GetRdvByPatient::class => DI\autowire(),
     HomeAction::class => DI\autowire(),
+    GetRdvsByPraticien::class => DI\autowire(),
     
     
 

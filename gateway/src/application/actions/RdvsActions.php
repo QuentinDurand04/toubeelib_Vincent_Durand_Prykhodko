@@ -25,7 +25,7 @@ class RdvsActions extends AbstractAction
     {
         try{
             //if no id in the request and request is get
-            if(!isset($args['id']) && $rq->getMethod() == 'GET'){
+            if(!isset($args['id']) && $rq->getMethod() == 'GET' && !isset($args['idPrat'])){
                 $response = $this->guzzle->get("/rdvs");
                 //sinon si la requete contient un id et /rdvs
             }elseif(isset($args['id']) && $rq->getMethod() == 'GET'){
